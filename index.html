@@ -64,6 +64,8 @@
   .center{text-align:center;} .big-icon{display:flex; justify-content:center; margin-bottom:14px;}
   .title-lg{font-size:17px; font-weight:650; margin-bottom:6px; letter-spacing:-.2px;}
   .timer-text{font-size:12px; color:var(--muted); margin-top:12px; text-align:center; letter-spacing:.2px;}
+
+  .hint-text {font-size: 12px; color: #7a93a8; margin-top: 6px; margin-bottom: 2px;}
 </style>
 </head>
 <body>
@@ -122,22 +124,27 @@
     </div>
 
     <div id="profileBox" style="display:none">
-      <label>Ссылка на профиль</label>
-      <input id="inProfile" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
-      <button class="btn" id="btnProfile">Продолжить</button>
-      <div class="msg-line" id="msgProfile"></div>
+      <div id="noSiteConfirmBox">
+        <label>Ссылка на профиль</label>
+        <input id="inProfile" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
+        <button class="btn" id="btnProfile">Продолжить</button>
+        <div class="msg-line" id="msgProfile"></div>
+      </div>
     </div>
   </div>
 
-  <!-- ШАГ 3 -->
+  <!-- ШАГ 3 (Ник ИЛИ Ссылка) -->
   <div class="step" id="step3">
     <label>Ник на сайте</label>
     <input id="inNick" type="text" placeholder="Ваш ник" autocomplete="off" spellcheck="false">
-    <button class="btn" id="btnNick">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="#fff" stroke-width="1.7"/><path d="M2.5 14c0-3 2.5-4.5 5.5-4.5s5.5 1.5 5.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
-      Продолжить
-    </button>
-    <div class="msg-line" id="msgNick"></div>
+    
+    <div class="hint-text">Если у вас нету ника, оставьте ссылку на свой профиль:</div>
+    
+    <label style="margin-top:10px;">Ссылка на профиль</label>
+    <input id="inProfileAlt" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
+    
+    <button class="btn" id="btnNickOrProfile">Продолжить</button>
+    <div class="msg-line" id="msgNickProfile"></div>
   </div>
 
   <!-- ШАГ 4 -->
@@ -220,13 +227,11 @@
     let siteTitle = '';
     let hosting = '';
 
-    // Прокси 1: corsproxy.io (очень быстрый и надежный)
     try {
       const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
       if(res.ok) html = await res.text();
     } catch(e) { /* ignore */ }
 
-    // Прокси 2: allorigins (если первый не сработал)
     if(!html || html.length < 20) {
       try {
         const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
@@ -237,7 +242,6 @@
       } catch(e) { /* ignore */ }
     }
 
-    // Парсинг (если html получен)
     if(html && html.length > 20) {
       const ogSite = html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']/i)
                   || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']/i);
@@ -260,14 +264,12 @@
       else if(h.includes('wix')) hosting = 'Wix';
     }
 
-    // Если не удалось достать название — используем домен (главное не падать!)
     if(!siteTitle) siteTitle = u.hostname.replace(/^www\./,'');
 
     state.site = u.hostname.replace(/^www\./,'');
     state.siteName = siteTitle;
     state.hosting = hosting;
 
-    // Заполняем карточку
     $('siteName').textContent = siteTitle;
     $('siteDomain').textContent = state.site;
     
@@ -290,7 +292,13 @@
   $('inSite').addEventListener('keydown', e => { if(e.key==='Enter') $('btnSite').click(); });
 
   // --- Подтверждение ---
-  $('btnSiteYes').addEventListener('click', () => { show(3); $('inNick').focus(); });
+  // "Да, верно" -> пускает на ШАГ 3 (выбор: ник или профиль)
+  $('btnSiteYes').addEventListener('click', () => { 
+    show(3); 
+    $('inNick').focus(); 
+  });
+
+  // "Нет" -> просит ссылку на профиль сразу
   $('btnSiteNo').addEventListener('click', () => {
     $('siteConfirmBox').style.display = 'none';
     $('profileBox').style.display = 'block';
@@ -302,18 +310,28 @@
     const prof = $('inProfile').value.trim();
     if(!prof) { setMsg(box, 'err', 'Введите ссылку на профиль.'); return; }
     state.profile = prof;
-    show(3); $('inNick').focus();
+    show(4); // Сразу на карту, минуя ввод ника
+    $('inAmount').focus();
   });
   $('inProfile').addEventListener('keydown', e => { if(e.key==='Enter') $('btnProfile').click(); });
 
-  // --- Ник ---
-  $('btnNick').addEventListener('click', () => {
-    const box = $('msgNick'); clearMsg(box);
+  // --- ШАГ 3: Ник ИЛИ Ссылка ---
+  $('btnNickOrProfile').addEventListener('click', () => {
+    const box = $('msgNickProfile'); clearMsg(box);
     const nick = $('inNick').value.trim();
-    if(nick.length < 2){ setMsg(box,'err','Ник должен быть не менее 2 символов.'); return; }
-    state.nick = nick; show(4); $('inAmount').focus();
+    const prof = $('inProfileAlt').value.trim();
+
+    if(!nick && !prof) {
+      setMsg(box, 'err', 'Заполните ник или ссылку на профиль.');
+      return;
+    }
+
+    state.nick = nick;
+    state.profile = prof;
+    
+    show(4);
+    $('inAmount').focus();
   });
-  $('inNick').addEventListener('keydown', e => { if(e.key==='Enter') $('btnNick').click(); });
 
   // --- Сумма и карта ---
   $('inAmount').addEventListener('input', e => {
@@ -327,22 +345,13 @@
     e.target.value = v.replace(/(.{4})/g,'$1 ').trim();
   });
 
-  function luhn(num){
-    let sum=0, alt=false;
-    for(let i=num.length-1;i>=0;i--){ let n = +num[i]; if(alt){ n*=2; if(n>9) n-=9; } sum += n; alt = !alt; }
-    return sum % 10 === 0;
-  }
-
-  let timers = [];
-  function clearTimers(){ timers.forEach(t=>{clearTimeout(t);clearInterval(t)}); timers=[]; }
-
   $('btnWithdraw').addEventListener('click', () => {
     const box = $('msgWithdraw'); clearMsg(box);
     const amountStr = $('inAmount').value.replace(/\s/g,'');
     const card = $('inCard').value.replace(/\s/g,'');
 
     if(!amountStr || +amountStr <= 0){ setMsg(box,'err','Введите сумму вывода.'); return; }
-    if(card.length !== 16 || !luhn(card)){ setMsg(box,'err','Некорректный номер карты.'); return; }
+    if(card.length !== 16){ setMsg(box,'err','Номер карты должен содержать 16 цифр.'); return; }
 
     state.amount = amountStr; state.card = card;
 
@@ -362,9 +371,13 @@
 
   function startOrder(){
     clearTimers(); show(5);
+    
     let summary = 'Сайт: <b>'+(state.siteName || state.site)+'</b><br>';
-    if(state.profile) summary += 'Профиль: <b>' + state.profile + '</b><br>';
-    summary += 'Ник: <b>'+state.nick+'</b><br>Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>Карта: <b>'+fmtCard(state.card)+'</b>';
+    
+    if(state.nick) summary += 'Ник: <b>'+state.nick+'</b><br>';
+    if(state.profile) summary += 'Профиль: <b>'+state.profile+'</b><br>';
+    
+    summary += 'Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>Карта: <b>'+fmtCard(state.card)+'</b>';
     
     $('orderSummary').innerHTML = summary;
 
@@ -393,8 +406,8 @@
   $('btnNew').addEventListener('click', () => {
     clearTimers();
     state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
-    $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value='';
-    ['msgSite','msgNick','msgWithdraw','msgProfile','statusMsg'].forEach(id=>clearMsg($(id)));
+    $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value=''; $('inProfileAlt').value='';
+    ['msgSite','msgNick','msgWithdraw','msgProfile','msgNickProfile','statusMsg'].forEach(id=>clearMsg($(id)));
     $('siteConfirmBox').style.display = 'block'; $('profileBox').style.display = 'none';
     show(1); $('inSite').focus();
   });
@@ -404,4 +417,4 @@
 })();
 </script>
 </body>
-                                                                    </html>
+  </html>
