@@ -6,147 +6,64 @@
 <title>Вывод денег</title>
 <style>
   :root{
-    --bg-deep:#d0e1f0;
-    --bg-soft:#e6f0f8;
-    --card:#ffffff;
-    --line:#b8cfe0;
-    --line-focus:#7ba7c7;
-    --ink:#1e3448;
-    --muted:#647f96;
-    --accent:#4a7fa5;
-    --accent-d:#386a8c;
-    --accent-l:#b5d0e4;
-    --ok:#4e8c6e;
-    --err:#c05a5a;
+    --bg-deep:#d0e1f0; --bg-soft:#e6f0f8; --card:#ffffff;
+    --line:#b8cfe0; --line-focus:#7ba7c7; --ink:#1e3448;
+    --muted:#647f96; --accent:#4a7fa5; --accent-d:#386a8c;
+    --accent-l:#b5d0e4; --ok:#4e8c6e; --err:#c05a5a;
     --shadow:0 12px 40px rgba(58,106,140,.12);
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   body{
     font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-    background:
-      radial-gradient(ellipse at 20% 0%, #c5d9eb 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 100%, #c9dcea 0%, transparent 55%),
-      linear-gradient(155deg,var(--bg-soft) 0%,var(--bg-deep) 100%);
-    min-height:100vh;
-    display:flex;align-items:center;justify-content:center;
-    padding:20px 16px;color:var(--ink);
+    background:radial-gradient(ellipse at 20% 0%, #c5d9eb 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, #c9dcea 0%, transparent 55%), linear-gradient(155deg,var(--bg-soft) 0%,var(--bg-deep) 100%);
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px 16px; color:var(--ink);
   }
-  .app{
-    width:100%;max-width:440px;
-    background:var(--card);
-    border:1px solid rgba(184,207,224,.6);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    padding:28px 24px 24px;
-    position:relative;
-    overflow:hidden;
-  }
-  .app::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:3px;
-    background:linear-gradient(90deg,var(--accent-l),var(--accent),var(--accent-l));
-  }
-  .head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-  .head-icon{
-    width:42px;height:42px;flex:0 0 auto;
-    background:linear-gradient(135deg,#e3eef7,#d0e2f0);
-    border-radius:12px;
-    display:flex;align-items:center;justify-content:center;
-    border:1px solid #c5d9e8;
-  }
-  h1{font-size:19px;font-weight:650;letter-spacing:-.2px}
-  .sub{font-size:12px;color:var(--muted);margin-top:2px}
+  .app{width:100%; max-width:440px; background:var(--card); border:1px solid rgba(184,207,224,.6); border-radius:20px; box-shadow:var(--shadow); padding:28px 24px 24px; position:relative; overflow:hidden;}
+  .app::before{content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent-l),var(--accent),var(--accent-l));}
+  .head{display:flex; align-items:center; gap:12px; margin-bottom:22px;}
+  .head-icon{width:42px; height:42px; flex:0 0 auto; background:linear-gradient(135deg,#e3eef7,#d0e2f0); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #c5d9e8;}
+  h1{font-size:19px; font-weight:650; letter-spacing:-.2px;}
+  .sub{font-size:12px; color:var(--muted); margin-top:2px;}
 
-  .step{display:none}
-  .step.active{display:block;animation:slideIn .3s cubic-bezier(.22,.61,.36,1)}
-  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .step{display:none;}
+  .step.active{display:block; animation:slideIn .3s cubic-bezier(.22,.61,.36,1);}
+  @keyframes slideIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
 
-  label{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin:14px 0 6px;letter-spacing:.2px}
-  input{
-    width:100%;padding:12px 14px;font-size:15px;
-    border:1.5px solid var(--line);border-radius:10px;
-    background:#f6fafd;color:var(--ink);outline:none;
-    transition:border .2s, box-shadow .2s, background .2s;
-  }
-  input:hover{border-color:#a8c4d8}
-  input:focus{
-    border-color:var(--line-focus);background:#fff;
-    box-shadow:0 0 0 3px rgba(123,167,199,.18);
-  }
-  input::placeholder{color:#a0b8cc;font-size:14px}
+  label{display:block; font-size:12.5px; font-weight:500; color:var(--muted); margin:14px 0 6px; letter-spacing:.2px;}
+  input{width:100%; padding:12px 14px; font-size:15px; border:1.5px solid var(--line); border-radius:10px; background:#f6fafd; color:var(--ink); outline:none; transition:border .2s, box-shadow .2s, background .2s;}
+  input:hover{border-color:#a8c4d8;}
+  input:focus{border-color:var(--line-focus); background:#fff; box-shadow:0 0 0 3px rgba(123,167,199,.18);}
+  input::placeholder{color:#a0b8cc; font-size:14px;}
 
-  .btn{
-    width:100%;margin-top:20px;padding:13px;
-    border:none;border-radius:10px;cursor:pointer;
-    background:linear-gradient(180deg,var(--accent),var(--accent-d));
-    color:#fff;font-size:14px;font-weight:600;letter-spacing:.3px;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    transition:filter .18s, transform .08s, box-shadow .18s;
-    box-shadow:0 4px 14px rgba(74,127,165,.25);
-  }
-  .btn:hover{filter:brightness(1.08)}
-  .btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(74,127,165,.2)}
-  .btn:disabled{opacity:.6;cursor:default;filter:none;box-shadow:none}
+  .btn{width:100%; margin-top:20px; padding:13px; border:none; border-radius:10px; cursor:pointer; background:linear-gradient(180deg,var(--accent),var(--accent-d)); color:#fff; font-size:14px; font-weight:600; letter-spacing:.3px; display:flex; align-items:center; justify-content:center; gap:8px; transition:filter .18s, transform .08s, box-shadow .18s; box-shadow:0 4px 14px rgba(74,127,165,.25);}
+  .btn:hover{filter:brightness(1.08);} .btn:active{transform:translateY(1px); box-shadow:0 2px 8px rgba(74,127,165,.2);} .btn:disabled{opacity:.6; cursor:default; filter:none; box-shadow:none;}
+  .btn.ghost{background:#f2f7fb; color:var(--accent-d); border:1.5px solid var(--line); box-shadow:none;}
+  .btn.ghost:hover{background:#e8f2f9;}
 
-  .btn.ghost{
-    background:#f2f7fb;color:var(--accent-d);
-    border:1.5px solid var(--line);box-shadow:none;
-  }
-  .btn.ghost:hover{background:#e8f2f9}
+  .btn-row{display:flex; gap:10px; margin-top:18px;} .btn-row .btn{margin-top:0;}
 
-  .btn-row{display:flex;gap:10px;margin-top:18px}
-  .btn-row .btn{margin-top:0}
-
-  .msg-line{
-    display:none;align-items:center;gap:7px;
-    font-size:13px;margin-top:8px;padding-left:2px;
-    animation:fadeIn .2s ease;
-  }
-  .msg-line.err{color:var(--err);display:flex}
-  .msg-line.ok{color:var(--ok);display:flex}
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .msg-line{display:none; align-items:center; gap:7px; font-size:13px; margin-top:8px; padding-left:2px; animation:fadeIn .2s ease;}
+  .msg-line.err{color:var(--err); display:flex;} .msg-line.ok{color:var(--ok); display:flex;}
+  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
 
   /* Карточка сайта */
-  .site-card{
-    background:#f7fafd;border:1px solid #d0e2ef;
-    border-radius:14px;padding:18px;margin-bottom:20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.02);
-  }
-  .site-row {
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .site-item {
-    display: flex; flex-direction: column; gap: 4px;
-  }
-  .site-label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
-    color: var(--muted); font-weight: 600;
-  }
-  .site-value {
-    font-size: 14px; color: var(--ink); font-weight: 500;
-    word-break: break-all; line-height: 1.4;
-  }
-  .site-value.link {
-    color: var(--accent); text-decoration: none;
-    border-bottom: 1px solid rgba(74,127,165,.3);
-    transition: border-color .2s;
-  }
-  .site-value.link:hover { border-color: var(--accent); }
+  .site-card{background:#f7fafd; border:1px solid #d0e2ef; border-radius:14px; padding:18px; margin-bottom:20px; box-shadow:0 2px 10px rgba(0,0,0,.02);}
+  .site-row{display:flex; flex-direction:column; gap:12px;}
+  .site-item{display:flex; flex-direction:column; gap:4px;}
+  .site-label{font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); font-weight:600;}
+  .site-value{font-size:14px; color:var(--ink); font-weight:500; word-break:break-all; line-height:1.4;}
+  .site-value.link{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(74,127,165,.3); transition:border-color .2s;}
+  .site-value.link:hover{border-color:var(--accent);}
 
-  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:20px 0}
-  .summary{font-size:13px;color:var(--muted);line-height:1.8}
-  .summary b{color:var(--ink);font-weight:600}
+  .divider{height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:20px 0;}
+  .summary{font-size:13px; color:var(--muted); line-height:1.8;} .summary b{color:var(--ink); font-weight:600;}
 
-  .spinner{
-    width:16px;height:16px;border:2px solid rgba(255,255,255,.4);
-    border-top-color:#fff;border-radius:50%;
-    animation:spin .7s linear infinite;
-  }
-  @keyframes spin{to{transform:rotate(360deg)}}
+  .spinner{width:16px; height:16px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
 
-  .center{text-align:center}
-  .big-icon{display:flex;justify-content:center;margin-bottom:14px}
-  .title-lg{font-size:17px;font-weight:650;margin-bottom:6px;letter-spacing:-.2px}
-  .timer-text{font-size:12px;color:var(--muted);margin-top:12px;text-align:center;letter-spacing:.2px}
+  .center{text-align:center;} .big-icon{display:flex; justify-content:center; margin-bottom:14px;}
+  .title-lg{font-size:17px; font-weight:650; margin-bottom:6px; letter-spacing:-.2px;}
+  .timer-text{font-size:12px; color:var(--muted); margin-top:12px; text-align:center; letter-spacing:.2px;}
 </style>
 </head>
 <body>
@@ -154,11 +71,7 @@
 
   <div class="head">
     <div class="head-icon">
-      <svg width="24" height="24" viewBox="0 0 34 34" fill="none">
-        <rect x="2" y="6" width="30" height="22" rx="4" stroke="#4a7fa5" stroke-width="2"/>
-        <rect x="2" y="11" width="30" height="4" fill="#b5d0e4"/>
-        <circle cx="25" cy="22" r="3" fill="#4a7fa5"/>
-      </svg>
+      <svg width="24" height="24" viewBox="0 0 34 34" fill="none"><rect x="2" y="6" width="30" height="22" rx="4" stroke="#4a7fa5" stroke-width="2"/><rect x="2" y="11" width="30" height="4" fill="#b5d0e4"/><circle cx="25" cy="22" r="3" fill="#4a7fa5"/></svg>
     </div>
     <div>
       <h1>Вывод денег</h1>
@@ -171,10 +84,7 @@
     <label>Ссылка на сайт</label>
     <input id="inSite" type="text" placeholder="https://example.com" autocomplete="off" spellcheck="false">
     <button class="btn" id="btnSite">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/>
-        <path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-      </svg>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
       Проверить сайт
     </button>
     <div class="msg-line" id="msgSite"></div>
@@ -224,10 +134,7 @@
     <label>Ник на сайте</label>
     <input id="inNick" type="text" placeholder="Ваш ник" autocomplete="off" spellcheck="false">
     <button class="btn" id="btnNick">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="5" r="3" stroke="#fff" stroke-width="1.7"/>
-        <path d="M2.5 14c0-3 2.5-4.5 5.5-4.5s5.5 1.5 5.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-      </svg>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="#fff" stroke-width="1.7"/><path d="M2.5 14c0-3 2.5-4.5 5.5-4.5s5.5 1.5 5.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
       Продолжить
     </button>
     <div class="msg-line" id="msgNick"></div>
@@ -240,10 +147,7 @@
     <label>Номер карты</label>
     <input id="inCard" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" autocomplete="off">
     <button class="btn" id="btnWithdraw">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M2.5 12v1.5h11V12" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>
-      </svg>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 12v1.5h11V12" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
       Вывести
     </button>
     <div class="msg-line" id="msgWithdraw"></div>
@@ -253,10 +157,7 @@
   <div class="step" id="step5">
     <div class="center">
       <div class="big-icon">
-        <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
-          <circle cx="26" cy="26" r="24" stroke="#b5d0e4" stroke-width="2"/>
-          <path d="M16 27l7 7 13-14" stroke="#4e8c6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg width="48" height="48" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#b5d0e4" stroke-width="2"/><path d="M16 27l7 7 13-14" stroke="#4e8c6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="title-lg">Заявка на вывод создана!</div>
       <div class="summary" style="margin-bottom:16px">Ожидайте обработки: 5–10 минут.</div>
@@ -305,7 +206,7 @@
 
   let state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
 
-  // --- Проверка сайта ---
+  // --- НАДЕЖНАЯ ПРОВЕРКА САЙТА ---
   $('btnSite').addEventListener('click', async () => {
     const box = $('msgSite'); clearMsg(box);
     const u = normalizeUrl($('inSite').value);
@@ -315,17 +216,29 @@
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> Анализ...';
 
-    try{
-      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(u.href);
-      const resp = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
-      if(!resp.ok) throw new Error('network');
-      const data = await resp.json();
-      if(!data.contents || data.contents.trim().length < 20) throw new Error('empty');
+    let html = '';
+    let siteTitle = '';
+    let hosting = '';
 
-      const html = data.contents;
-      let siteTitle = '';
+    // Прокси 1: corsproxy.io (очень быстрый и надежный)
+    try {
+      const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
+      if(res.ok) html = await res.text();
+    } catch(e) { /* ignore */ }
 
-      // 1. Извлекаем название (title или og:site_name)
+    // Прокси 2: allorigins (если первый не сработал)
+    if(!html || html.length < 20) {
+      try {
+        const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
+        if(res.ok) {
+          const data = await res.json();
+          if(data.contents) html = data.contents;
+        }
+      } catch(e) { /* ignore */ }
+    }
+
+    // Парсинг (если html получен)
+    if(html && html.length > 20) {
       const ogSite = html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']/i)
                   || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']/i);
       if(ogSite) siteTitle = ogSite[1].trim();
@@ -334,13 +247,9 @@
         const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
         if(t) siteTitle = t[1].replace(/\s+/g,' ').trim();
       }
-      if(!siteTitle) siteTitle = u.hostname;
 
-      // 2. Определяем хостинг (где создан)
-      let hosting = '';
       const h = u.hostname.toLowerCase();
       const htmlLow = html.toLowerCase();
-
       if(h.includes('github.io') || htmlLow.includes('github.com')) hosting = 'GitHub Pages';
       else if(h.includes('vercel.app') || htmlLow.includes('vercel')) hosting = 'Vercel';
       else if(h.includes('netlify.app') || htmlLow.includes('netlify')) hosting = 'Netlify';
@@ -349,42 +258,39 @@
       else if(htmlLow.includes('wp-content') || htmlLow.includes('wordpress')) hosting = 'WordPress';
       else if(h.includes('blogspot')) hosting = 'Blogger';
       else if(h.includes('wix')) hosting = 'Wix';
-
-      state.site = u.hostname.replace(/^www\./,'');
-      state.siteName = siteTitle;
-      state.hosting = hosting;
-
-      // Заполняем карточку
-      $('siteName').textContent = siteTitle;
-      $('siteDomain').textContent = state.site;
-      
-      const linkEl = $('siteLink');
-      linkEl.textContent = u.href;
-      linkEl.href = u.href;
-
-      if(hosting){
-        $('siteHostBox').style.display = 'flex';
-        $('siteHost').textContent = hosting;
-      } else {
-        $('siteHostBox').style.display = 'none';
-      }
-
-      show(2);
-    }catch(err){
-      setMsg(box,'err','Сайт не найден или недоступен.');
-    }finally{
-      btn.disabled = false;
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт';
     }
+
+    // Если не удалось достать название — используем домен (главное не падать!)
+    if(!siteTitle) siteTitle = u.hostname.replace(/^www\./,'');
+
+    state.site = u.hostname.replace(/^www\./,'');
+    state.siteName = siteTitle;
+    state.hosting = hosting;
+
+    // Заполняем карточку
+    $('siteName').textContent = siteTitle;
+    $('siteDomain').textContent = state.site;
+    
+    const linkEl = $('siteLink');
+    linkEl.textContent = u.href;
+    linkEl.href = u.href;
+
+    if(hosting){
+      $('siteHostBox').style.display = 'flex';
+      $('siteHost').textContent = hosting;
+    } else {
+      $('siteHostBox').style.display = 'none';
+    }
+
+    show(2);
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт';
   });
+
   $('inSite').addEventListener('keydown', e => { if(e.key==='Enter') $('btnSite').click(); });
 
   // --- Подтверждение ---
-  $('btnSiteYes').addEventListener('click', () => {
-    show(3);
-    $('inNick').focus();
-  });
-  
+  $('btnSiteYes').addEventListener('click', () => { show(3); $('inNick').focus(); });
   $('btnSiteNo').addEventListener('click', () => {
     $('siteConfirmBox').style.display = 'none';
     $('profileBox').style.display = 'block';
@@ -396,8 +302,7 @@
     const prof = $('inProfile').value.trim();
     if(!prof) { setMsg(box, 'err', 'Введите ссылку на профиль.'); return; }
     state.profile = prof;
-    show(3);
-    $('inNick').focus();
+    show(3); $('inNick').focus();
   });
   $('inProfile').addEventListener('keydown', e => { if(e.key==='Enter') $('btnProfile').click(); });
 
@@ -406,9 +311,7 @@
     const box = $('msgNick'); clearMsg(box);
     const nick = $('inNick').value.trim();
     if(nick.length < 2){ setMsg(box,'err','Ник должен быть не менее 2 символов.'); return; }
-    state.nick = nick;
-    show(4);
-    $('inAmount').focus();
+    state.nick = nick; show(4); $('inAmount').focus();
   });
   $('inNick').addEventListener('keydown', e => { if(e.key==='Enter') $('btnNick').click(); });
 
@@ -426,11 +329,7 @@
 
   function luhn(num){
     let sum=0, alt=false;
-    for(let i=num.length-1;i>=0;i--){
-      let n = +num[i];
-      if(alt){ n*=2; if(n>9) n-=9; }
-      sum += n; alt = !alt;
-    }
+    for(let i=num.length-1;i>=0;i--){ let n = +num[i]; if(alt){ n*=2; if(n>9) n-=9; } sum += n; alt = !alt; }
     return sum % 10 === 0;
   }
 
@@ -445,8 +344,7 @@
     if(!amountStr || +amountStr <= 0){ setMsg(box,'err','Введите сумму вывода.'); return; }
     if(card.length !== 16 || !luhn(card)){ setMsg(box,'err','Некорректный номер карты.'); return; }
 
-    state.amount = amountStr;
-    state.card = card;
+    state.amount = amountStr; state.card = card;
 
     const btn = $('btnWithdraw');
     btn.disabled = true;
@@ -464,31 +362,21 @@
 
   function startOrder(){
     clearTimers(); show(5);
-
     let summary = 'Сайт: <b>'+(state.siteName || state.site)+'</b><br>';
     if(state.profile) summary += 'Профиль: <b>' + state.profile + '</b><br>';
-    summary += 'Ник: <b>'+state.nick+'</b><br>' +
-      'Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>' +
-      'Карта: <b>'+fmtCard(state.card)+'</b>';
+    summary += 'Ник: <b>'+state.nick+'</b><br>Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>Карта: <b>'+fmtCard(state.card)+'</b>';
     
     $('orderSummary').innerHTML = summary;
 
     const status = $('statusMsg');
     setMsg(status,'ok','Заявка создана. Ожидайте.');
 
-    $('btnNew').style.display = 'none';
-    $('btnStay').style.display = 'none';
-    $('timerWrap').textContent = '';
+    $('btnNew').style.display = 'none'; $('btnStay').style.display = 'none'; $('timerWrap').textContent = '';
 
-    timers.push(setTimeout(() => {
-      setMsg(status,'ok','Вывод обрабатывается...');
-    }, 30000));
-
+    timers.push(setTimeout(() => { setMsg(status,'ok','Вывод обрабатывается...'); }, 30000));
     timers.push(setTimeout(() => {
       setMsg(status,'ok','Вывод завершён. Средства зачислены.');
-      $('btnNew').style.display = 'flex';
-      $('btnStay').style.display = 'flex';
-      $('timerWrap').textContent = '';
+      $('btnNew').style.display = 'flex'; $('btnStay').style.display = 'flex'; $('timerWrap').textContent = '';
     }, 5*60*1000));
 
     let left = 5*60;
@@ -507,17 +395,13 @@
     state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
     $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value='';
     ['msgSite','msgNick','msgWithdraw','msgProfile','statusMsg'].forEach(id=>clearMsg($(id)));
-    $('siteConfirmBox').style.display = 'block';
-    $('profileBox').style.display = 'none';
+    $('siteConfirmBox').style.display = 'block'; $('profileBox').style.display = 'none';
     show(1); $('inSite').focus();
   });
 
-  $('btnStay').addEventListener('click', () => {
-    $('btnStay').style.display = 'none';
-    $('btnNew').style.display = 'none';
-  });
+  $('btnStay').addEventListener('click', () => { $('btnStay').style.display = 'none'; $('btnNew').style.display = 'none'; });
 
 })();
 </script>
 </body>
-        </html>
+                                                                    </html>
