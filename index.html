@@ -25,6 +25,9 @@
   h1{font-size:19px; font-weight:650; letter-spacing:-.2px;}
   .sub{font-size:12px; color:var(--muted); margin-top:2px;}
 
+  .profile-btn { position: absolute; top: 28px; right: 24px; background: none; border: none; cursor: pointer; color: var(--accent); display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 8px; transition: background .2s;}
+  .profile-btn:hover { background: #e8f2f9; }
+
   .step{display:none;}
   .step.active{display:block; animation:slideIn .3s cubic-bezier(.22,.61,.36,1);}
   @keyframes slideIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
@@ -39,6 +42,7 @@
   .btn:hover{filter:brightness(1.08);} .btn:active{transform:translateY(1px); box-shadow:0 2px 8px rgba(74,127,165,.2);} .btn:disabled{opacity:.6; cursor:default; filter:none; box-shadow:none;}
   .btn.ghost{background:#f2f7fb; color:var(--accent-d); border:1.5px solid var(--line); box-shadow:none;}
   .btn.ghost:hover{background:#e8f2f9;}
+  .btn.google {background:#fff; color:#333; border:1px solid #ccc; box-shadow:none;}
 
   .btn-row{display:flex; gap:10px; margin-top:18px;} .btn-row .btn{margin-top:0;}
 
@@ -46,7 +50,6 @@
   .msg-line.err{color:var(--err); display:flex;} .msg-line.ok{color:var(--ok); display:flex;}
   @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
 
-  /* Карточка сайта */
   .site-card{background:#f7fafd; border:1px solid #d0e2ef; border-radius:14px; padding:18px; margin-bottom:20px; box-shadow:0 2px 10px rgba(0,0,0,.02);}
   .site-row{display:flex; flex-direction:column; gap:12px;}
   .site-item{display:flex; flex-direction:column; gap:4px;}
@@ -66,6 +69,13 @@
   .timer-text{font-size:12px; color:var(--muted); margin-top:12px; text-align:center; letter-spacing:.2px;}
 
   .hint-text {font-size: 12px; color: #7a93a8; margin-top: 6px; margin-bottom: 2px;}
+
+  .history-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .history-item { background: #f7fafd; border: 1px solid #d0e2ef; border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 13px;}
+  .history-item .amount { font-weight: 600; color: var(--ink); }
+  .history-item .status { padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .status.ok { background: #edf6f1; color: var(--ok); }
+  .status.pending { background: #fff8e1; color: #b08d00; }
 </style>
 </head>
 <body>
@@ -78,6 +88,43 @@
     <div>
       <h1>Вывод денег</h1>
       <div class="sub">Оформление заявки на вывод</div>
+    </div>
+  </div>
+
+  <button class="profile-btn" id="navProfile" style="display:none" title="Профиль">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+    <!-- ШАГ 0: Авторизация -->
+  <div class="step" id="step0">
+    <div id="loginBox">
+      <label>Логин</label>
+      <input id="inLogin" type="text" placeholder="Введите логин" autocomplete="off">
+      <label>Пароль</label>
+      <input id="inPass" type="password" placeholder="Введите пароль" autocomplete="off">
+      <button class="btn" id="btnLogin">Войти</button>
+      <div class="msg-line" id="msgAuth"></div>
+      
+      <div class="divider"></div>
+      <button class="btn google" id="btnGoogle">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Войти через Google
+      </button>
+      
+      <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--muted);">
+        Нет аккаунта? <a href="#" id="linkReg" style="color:var(--accent); text-decoration:none; font-weight:600;">Регистрация</a>
+      </div>
+    </div>
+
+    <div id="regBox" style="display:none">
+      <label>Логин</label>
+      <input id="inRegLogin" type="text" placeholder="Придумайте логин" autocomplete="off">
+      <label>Пароль</label>
+      <input id="inRegPass" type="password" placeholder="Придумайте пароль" autocomplete="off">
+      <button class="btn" id="btnReg">Зарегистрироваться</button>
+      <div class="msg-line" id="msgReg"></div>
+      <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--muted);">
+        Уже есть аккаунт? <a href="#" id="linkLogin" style="color:var(--accent); text-decoration:none; font-weight:600;">Войти</a>
+      </div>
     </div>
   </div>
 
@@ -124,25 +171,20 @@
     </div>
 
     <div id="profileBox" style="display:none">
-      <div id="noSiteConfirmBox">
-        <label>Ссылка на профиль</label>
-        <input id="inProfile" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
-        <button class="btn" id="btnProfile">Продолжить</button>
-        <div class="msg-line" id="msgProfile"></div>
-      </div>
+      <label>Ссылка на профиль</label>
+      <input id="inProfile" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
+      <button class="btn" id="btnProfile">Продолжить</button>
+      <div class="msg-line" id="msgProfile"></div>
     </div>
   </div>
 
-  <!-- ШАГ 3 (Ник ИЛИ Ссылка) -->
+  <!-- ШАГ 3 -->
   <div class="step" id="step3">
     <label>Ник на сайте</label>
     <input id="inNick" type="text" placeholder="Ваш ник" autocomplete="off" spellcheck="false">
-    
     <div class="hint-text">Если у вас нету ника, оставьте ссылку на свой профиль:</div>
-    
     <label style="margin-top:10px;">Ссылка на профиль</label>
     <input id="inProfileAlt" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
-    
     <button class="btn" id="btnNickOrProfile">Продолжить</button>
     <div class="msg-line" id="msgNickProfile"></div>
   </div>
@@ -177,12 +219,37 @@
     <button class="btn ghost" id="btnStay" style="display:none">Остаться здесь</button>
   </div>
 
-</div>
+  <!-- ШАГ 6: ПРОФИЛЬ -->
+  <div class="step" id="step6">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+      <div style="width:50px; height:50px; background:#e8f2f9; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent-d); font-size:20px; font-weight:600;">
+        <span id="profAvatar">U</span>
+      </div>
+      <div>
+        <div style="font-size:16px; font-weight:600;" id="profLogin">User</div>
+        <div style="font-size:12px; color:var(--muted);">Личный кабинет</div>
+      </div>
+    </div>
+    
+    <div class="summary">
+      Всего выведено: <b id="profTotal">0 ₽</b><br>
+      Заявок: <b id="profCount">0</b>
+    </div>
 
-<script>
+    <div class="divider"></div>
+    <div style="font-size:14px; font-weight:600; margin-bottom:10px;">История выводов</div>
+    
+    <div class="history-list" id="historyList"></div>
+
+    <button class="btn" id="btnBackToMain" style="margin-top:24px;">Вернуться на главную</button>
+    <button class="btn ghost" id="btnLogout">Выйти из аккаунта</button>
+  </div>
+
+  </div>
+  <script>
 (function(){
   const $ = id => document.getElementById(id);
-  const steps = {1:$('step1'),2:$('step2'),3:$('step3'),4:$('step4'),5:$('step5')};
+  const steps = {0:$('step0'),1:$('step1'),2:$('step2'),3:$('step3'),4:$('step4'),5:$('step5'),6:$('step6')};
   
   function show(n){
     Object.values(steps).forEach(s=>s.classList.remove('active'));
@@ -200,6 +267,121 @@
   }
   function clearMsg(el){ el.style.display='none'; el.innerHTML=''; }
 
+  // --- Система пользователей ---
+  let currentUser = JSON.parse(localStorage.getItem('wd_currentUser')) || null;
+  let users = JSON.parse(localStorage.getItem('wd_users')) || {};
+
+  function saveUsers() { localStorage.setItem('wd_users', JSON.stringify(users)); }
+  function saveCurrentUser() { localStorage.setItem('wd_currentUser', JSON.stringify(currentUser)); }
+
+  function updateUILogin() {
+    if(currentUser) {
+      $('navProfile').style.display = 'flex';
+      show(1);
+    } else {
+      $('navProfile').style.display = 'none';
+      show(0);
+    }
+  }
+
+  $('linkReg').addEventListener('click', (e) => { e.preventDefault(); $('loginBox').style.display='none'; $('regBox').style.display='block'; });
+  $('linkLogin').addEventListener('click', (e) => { e.preventDefault(); $('regBox').style.display='none'; $('loginBox').style.display='block'; });
+
+  $('btnLogin').addEventListener('click', () => {
+    const box = $('msgAuth'); clearMsg(box);
+    const l = $('inLogin').value.trim();
+    const p = $('inPass').value;
+    if(users[l] && users[l].password === p) {
+      currentUser = users[l];
+      currentUser.login = l;
+      saveCurrentUser();
+      $('inLogin').value=''; $('inPass').value='';
+      updateUILogin();
+    } else {
+      setMsg(box, 'err', 'Неверный логин или пароль.');
+    }
+  });
+
+  $('btnReg').addEventListener('click', () => {
+    const box = $('msgReg'); clearMsg(box);
+    const l = $('inRegLogin').value.trim();
+    const p = $('inRegPass').value;
+    if(l.length < 3) { setMsg(box, 'err', 'Логин должен быть не менее 3 символов.'); return; }
+    if(p.length < 4) { setMsg(box, 'err', 'Пароль должен быть не менее 4 символов.'); return; }
+    if(users[l]) { setMsg(box, 'err', 'Такой логин уже существует.'); return; }
+    
+    users[l] = { password: p, history: [], total: 0 };
+    saveUsers();
+    currentUser = users[l];
+    currentUser.login = l;
+    saveCurrentUser();
+    $('inRegLogin').value=''; $('inRegPass').value='';
+    updateUILogin();
+  });
+
+  $('btnGoogle').addEventListener('click', () => {
+    const l = 'google_user';
+    if(!users[l]) users[l] = { password: 'google', history: [], total: 0 };
+    saveUsers();
+    currentUser = users[l];
+    currentUser.login = l;
+    saveCurrentUser();
+    updateUILogin();
+  });
+
+  $('btnLogout').addEventListener('click', () => {
+    currentUser = null;
+    localStorage.removeItem('wd_currentUser');
+    updateUILogin();
+  });
+
+  $('navProfile').addEventListener('click', () => {
+    renderProfile();
+    show(6);
+  });
+  $('btnBackToMain').addEventListener('click', () => show(1));
+
+  function renderProfile() {
+    if(!currentUser) return;
+    $('profLogin').textContent = currentUser.login;
+    $('profAvatar').textContent = currentUser.login[0].toUpperCase();
+    
+    let historyHtml = '';
+    let total = 0;
+    let count = 0;
+    
+    if(currentUser.history && currentUser.history.length > 0) {
+      const revHistory = [...currentUser.history].reverse();
+      revHistory.forEach(item => {
+        count++;
+        if(item.status === 'ok') total += Number(item.amount);
+        const statusClass = item.status === 'ok' ? 'ok' : 'pending';
+        const statusText = item.status === 'ok' ? 'Завершено' : 'В обработке';
+        historyHtml += `
+          <div class="history-item">
+            <div>
+              <div class="amount">${Number(item.amount).toLocaleString('ru-RU')} ₽</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:2px;">${item.date}</div>
+            </div>
+            <div class="status ${statusClass}">${statusText}</div>
+          </div>
+        `;
+      });
+      $('historyList').innerHTML = historyHtml;
+    } else {
+      $('historyList').innerHTML = '<div style="font-size:13px; color:var(--muted); text-align:center; padding:10px;">История пуста</div>';
+    }
+    
+    $('profTotal').textContent = total.toLocaleString('ru-RU') + ' ₽';
+    $('profCount').textContent = count;
+  }
+
+  // --- Основной процесс ---
+  let state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
+  let timers = [];
+
+  function clearTimers(){ timers.forEach(t=>{clearTimeout(t);clearInterval(t)}); timers=[]; }
+
   function normalizeUrl(v){
     v = v.trim();
     if(!v) return null;
@@ -211,9 +393,6 @@
     }catch(e){ return null; }
   }
 
-  let state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
-
-  // --- НАДЕЖНАЯ ПРОВЕРКА САЙТА ---
   $('btnSite').addEventListener('click', async () => {
     const box = $('msgSite'); clearMsg(box);
     const u = normalizeUrl($('inSite').value);
@@ -223,9 +402,7 @@
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> Анализ...';
 
-    let html = '';
-    let siteTitle = '';
-    let hosting = '';
+    let html = '', siteTitle = '', hosting = '';
 
     try {
       const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
@@ -257,48 +434,29 @@
       if(h.includes('github.io') || htmlLow.includes('github.com')) hosting = 'GitHub Pages';
       else if(h.includes('vercel.app') || htmlLow.includes('vercel')) hosting = 'Vercel';
       else if(h.includes('netlify.app') || htmlLow.includes('netlify')) hosting = 'Netlify';
-      else if(h.includes('cloudflare') || htmlLow.includes('cloudflare')) hosting = 'Cloudflare';
-      else if(h.includes('tilda') || htmlLow.includes('tilda')) hosting = 'Tilda';
-      else if(htmlLow.includes('wp-content') || htmlLow.includes('wordpress')) hosting = 'WordPress';
-      else if(h.includes('blogspot')) hosting = 'Blogger';
-      else if(h.includes('wix')) hosting = 'Wix';
+      else if(htmlLow.includes('wp-content')) hosting = 'WordPress';
     }
 
     if(!siteTitle) siteTitle = u.hostname.replace(/^www\./,'');
-
     state.site = u.hostname.replace(/^www\./,'');
     state.siteName = siteTitle;
-    state.hosting = hosting;
-
+    
     $('siteName').textContent = siteTitle;
     $('siteDomain').textContent = state.site;
-    
     const linkEl = $('siteLink');
     linkEl.textContent = u.href;
     linkEl.href = u.href;
 
-    if(hosting){
-      $('siteHostBox').style.display = 'flex';
-      $('siteHost').textContent = hosting;
-    } else {
-      $('siteHostBox').style.display = 'none';
-    }
+    if(hosting){ $('siteHostBox').style.display = 'flex'; $('siteHost').textContent = hosting; } 
+    else { $('siteHostBox').style.display = 'none'; }
 
     show(2);
     btn.disabled = false;
     btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт';
   });
-
   $('inSite').addEventListener('keydown', e => { if(e.key==='Enter') $('btnSite').click(); });
 
-  // --- Подтверждение ---
-  // "Да, верно" -> пускает на ШАГ 3 (выбор: ник или профиль)
-  $('btnSiteYes').addEventListener('click', () => { 
-    show(3); 
-    $('inNick').focus(); 
-  });
-
-  // "Нет" -> просит ссылку на профиль сразу
+  $('btnSiteYes').addEventListener('click', () => { show(3); $('inNick').focus(); });
   $('btnSiteNo').addEventListener('click', () => {
     $('siteConfirmBox').style.display = 'none';
     $('profileBox').style.display = 'block';
@@ -310,30 +468,19 @@
     const prof = $('inProfile').value.trim();
     if(!prof) { setMsg(box, 'err', 'Введите ссылку на профиль.'); return; }
     state.profile = prof;
-    show(4); // Сразу на карту, минуя ввод ника
-    $('inAmount').focus();
+    show(4); $('inAmount').focus();
   });
   $('inProfile').addEventListener('keydown', e => { if(e.key==='Enter') $('btnProfile').click(); });
 
-  // --- ШАГ 3: Ник ИЛИ Ссылка ---
   $('btnNickOrProfile').addEventListener('click', () => {
     const box = $('msgNickProfile'); clearMsg(box);
     const nick = $('inNick').value.trim();
     const prof = $('inProfileAlt').value.trim();
-
-    if(!nick && !prof) {
-      setMsg(box, 'err', 'Заполните ник или ссылку на профиль.');
-      return;
-    }
-
-    state.nick = nick;
-    state.profile = prof;
-    
-    show(4);
-    $('inAmount').focus();
+    if(!nick && !prof) { setMsg(box, 'err', 'Заполните ник или ссылку на профиль.'); return; }
+    state.nick = nick; state.profile = prof;
+    show(4); $('inAmount').focus();
   });
 
-  // --- Сумма и карта ---
   $('inAmount').addEventListener('input', e => {
     let v = e.target.value.replace(/\D/g, '');
     if(v) v = Number(v).toLocaleString('ru-RU');
@@ -351,6 +498,7 @@
     const card = $('inCard').value.replace(/\s/g,'');
 
     if(!amountStr || +amountStr <= 0){ setMsg(box,'err','Введите сумму вывода.'); return; }
+    if(+amountStr > 100000) { setMsg(box, 'err', 'Максимальная сумма за один раз: 100 000 ₽'); return; }
     if(card.length !== 16){ setMsg(box,'err','Номер карты должен содержать 16 цифр.'); return; }
 
     state.amount = amountStr; state.card = card;
@@ -366,17 +514,22 @@
     }, 800);
   });
 
-  // --- Ожидание ---
   function fmtCard(c){ return '**** **** **** ' + c.slice(-4); }
 
   function startOrder(){
     clearTimers(); show(5);
     
-    let summary = 'Сайт: <b>'+(state.siteName || state.site)+'</b><br>';
+    // Сохраняем в историю
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU').slice(0,5);
     
+    currentUser.history.push({ amount: state.amount, date: dateStr, status: 'pending' });
+    saveCurrentUser();
+    saveUsers();
+    
+    let summary = 'Сайт: <b>'+(state.siteName || state.site)+'</b><br>';
     if(state.nick) summary += 'Ник: <b>'+state.nick+'</b><br>';
     if(state.profile) summary += 'Профиль: <b>'+state.profile+'</b><br>';
-    
     summary += 'Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>Карта: <b>'+fmtCard(state.card)+'</b>';
     
     $('orderSummary').innerHTML = summary;
@@ -387,9 +540,15 @@
     $('btnNew').style.display = 'none'; $('btnStay').style.display = 'none'; $('timerWrap').textContent = '';
 
     timers.push(setTimeout(() => { setMsg(status,'ok','Вывод обрабатывается...'); }, 30000));
+    
     timers.push(setTimeout(() => {
       setMsg(status,'ok','Вывод завершён. Средства зачислены.');
       $('btnNew').style.display = 'flex'; $('btnStay').style.display = 'flex'; $('timerWrap').textContent = '';
+      
+      // Обновляем статус в истории
+      const lastItem = currentUser.history.find(i => i.status === 'pending');
+      if(lastItem) { lastItem.status = 'ok'; saveCurrentUser(); saveUsers(); }
+      
     }, 5*60*1000));
 
     let left = 5*60;
@@ -407,14 +566,17 @@
     clearTimers();
     state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
     $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value=''; $('inProfileAlt').value='';
-    ['msgSite','msgNick','msgWithdraw','msgProfile','msgNickProfile','statusMsg'].forEach(id=>clearMsg($(id)));
+    ['msgSite','msgWithdraw','msgProfile','msgNickProfile','statusMsg'].forEach(id=>clearMsg($(id)));
     $('siteConfirmBox').style.display = 'block'; $('profileBox').style.display = 'none';
     show(1); $('inSite').focus();
   });
 
   $('btnStay').addEventListener('click', () => { $('btnStay').style.display = 'none'; $('btnNew').style.display = 'none'; });
 
+  // Инициализация при загрузке
+  updateUILogin();
+
 })();
 </script>
 </body>
-  </html>
+</html>
