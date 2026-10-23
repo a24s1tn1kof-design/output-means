@@ -18,15 +18,15 @@
     background:radial-gradient(ellipse at 20% 0%, #c5d9eb 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, #c9dcea 0%, transparent 55%), linear-gradient(155deg,var(--bg-soft) 0%,var(--bg-deep) 100%);
     min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px 16px; color:var(--ink);
   }
-  .app{width:100%; max-width:440px; background:var(--card); border:1px solid rgba(184,207,224,.6); border-radius:20px; box-shadow:var(--shadow); padding:28px 24px 24px; position:relative; overflow:hidden;}
+  .app{width:100%; max-width:440px; background:var(--card); border:1px solid rgba(184,207,224,.6); border-radius:20px; box-shadow:var(--shadow); padding:28px 24px 24px; position:relative; overflow:hidden; margin: 20px 0;}
   .app::before{content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent-l),var(--accent),var(--accent-l));}
-  .head{display:flex; align-items:center; gap:12px; margin-bottom:22px;}
-  .head-icon{width:42px; height:42px; flex:0 0 auto; background:linear-gradient(135deg,#e3eef7,#d0e2f0); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #c5d9e8;}
-  h1{font-size:19px; font-weight:650; letter-spacing:-.2px;}
-  .sub{font-size:12px; color:var(--muted); margin-top:2px;}
-
-  .profile-btn { position: absolute; top: 28px; right: 24px; background: none; border: none; cursor: pointer; color: var(--accent); display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 8px; transition: background .2s;}
-  .profile-btn:hover { background: #e8f2f9; }
+  
+  .top-bar{display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;}
+  .head{display:flex; align-items:center; gap:12px;}
+  .head-icon{width:40px; height:40px; background:linear-gradient(135deg,#e3eef7,#d0e2f0); border-radius:12px; display:flex; align-items:center; justify-content:center; border:1px solid #c5d9e8;}
+  h1{font-size:18px; font-weight:650; letter-spacing:-.2px;}
+  .profile-btn{background:#f2f7fb; border:1.5px solid var(--line); cursor:pointer; color:var(--accent-d); padding:8px; border-radius:50%; transition:background .2s; display:none;}
+  .profile-btn:hover{background:#e8f2f9;}
 
   .step{display:none;}
   .step.active{display:block; animation:slideIn .3s cubic-bezier(.22,.61,.36,1);}
@@ -34,180 +34,195 @@
 
   label{display:block; font-size:12.5px; font-weight:500; color:var(--muted); margin:14px 0 6px; letter-spacing:.2px;}
   input{width:100%; padding:12px 14px; font-size:15px; border:1.5px solid var(--line); border-radius:10px; background:#f6fafd; color:var(--ink); outline:none; transition:border .2s, box-shadow .2s, background .2s;}
-  input:hover{border-color:#a8c4d8;}
   input:focus{border-color:var(--line-focus); background:#fff; box-shadow:0 0 0 3px rgba(123,167,199,.18);}
   input::placeholder{color:#a0b8cc; font-size:14px;}
 
-  .btn{width:100%; margin-top:20px; padding:13px; border:none; border-radius:10px; cursor:pointer; background:linear-gradient(180deg,var(--accent),var(--accent-d)); color:#fff; font-size:14px; font-weight:600; letter-spacing:.3px; display:flex; align-items:center; justify-content:center; gap:8px; transition:filter .18s, transform .08s, box-shadow .18s; box-shadow:0 4px 14px rgba(74,127,165,.25);}
-  .btn:hover{filter:brightness(1.08);} .btn:active{transform:translateY(1px); box-shadow:0 2px 8px rgba(74,127,165,.2);} .btn:disabled{opacity:.6; cursor:default; filter:none; box-shadow:none;}
-  .btn.ghost{background:#f2f7fb; color:var(--accent-d); border:1.5px solid var(--line); box-shadow:none;}
+  .btn{width:100%; margin-top:20px; padding:13px; border:none; border-radius:10px; cursor:pointer; background:linear-gradient(180deg,var(--accent),var(--accent-d)); color:#fff; font-size:14px; font-weight:600; letter-spacing:.3px; display:flex; align-items:center; justify-content:center; gap:8px; transition:filter .18s, transform .08s;}
+  .btn:hover{filter:brightness(1.08);} .btn:active{transform:translateY(1px);} .btn:disabled{opacity:.6; cursor:default;}
+  .btn.ghost{background:#f2f7fb; color:var(--accent-d); border:1.5px solid var(--line);}
   .btn.ghost:hover{background:#e8f2f9;}
-  .btn.google {background:#fff; color:#333; border:1px solid #ccc; box-shadow:none;}
-
   .btn-row{display:flex; gap:10px; margin-top:18px;} .btn-row .btn{margin-top:0;}
 
-  .msg-line{display:none; align-items:center; gap:7px; font-size:13px; margin-top:8px; padding-left:2px; animation:fadeIn .2s ease;}
+  .msg-line{display:none; align-items:center; gap:7px; font-size:13px; margin-top:8px;}
   .msg-line.err{color:var(--err); display:flex;} .msg-line.ok{color:var(--ok); display:flex;}
-  @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
 
-  .site-card{background:#f7fafd; border:1px solid #d0e2ef; border-radius:14px; padding:18px; margin-bottom:20px; box-shadow:0 2px 10px rgba(0,0,0,.02);}
+  .site-card{background:#f7fafd; border:1px solid #d0e2ef; border-radius:14px; padding:18px; margin-bottom:20px;}
   .site-row{display:flex; flex-direction:column; gap:12px;}
   .site-item{display:flex; flex-direction:column; gap:4px;}
-  .site-label{font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); font-weight:600;}
-  .site-value{font-size:14px; color:var(--ink); font-weight:500; word-break:break-all; line-height:1.4;}
-  .site-value.link{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(74,127,165,.3); transition:border-color .2s;}
-  .site-value.link:hover{border-color:var(--accent);}
+  .site-label{font-size:11px; text-transform:uppercase; color:var(--muted); font-weight:600;}
+  .site-value{font-size:14px; color:var(--ink); font-weight:500; word-break:break-all;}
+  .site-value.link{color:var(--accent); text-decoration:none;}
 
   .divider{height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:20px 0;}
   .summary{font-size:13px; color:var(--muted); line-height:1.8;} .summary b{color:var(--ink); font-weight:600;}
-
   .spinner{width:16px; height:16px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
-
   .center{text-align:center;} .big-icon{display:flex; justify-content:center; margin-bottom:14px;}
-  .title-lg{font-size:17px; font-weight:650; margin-bottom:6px; letter-spacing:-.2px;}
-  .timer-text{font-size:12px; color:var(--muted); margin-top:12px; text-align:center; letter-spacing:.2px;}
+  .title-lg{font-size:17px; font-weight:650; margin-bottom:6px;}
+  .timer-text{font-size:12px; color:var(--muted); margin-top:12px; text-align:center;}
+  .hint-text{font-size:12px; color:#7a93a8; margin-top:6px;}
+  
+  .history-list{margin-top:16px; display:flex; flex-direction:column; gap:10px;}
+  .history-item{background:#f7fafd; border:1px solid #d0e2ef; border-radius:10px; padding:12px; display:flex; justify-content:space-between; align-items:center; font-size:13px;}
+  .status{padding:3px 8px; border-radius:6px; font-size:11px; font-weight:600;}
+  .status.ok{background:#edf6f1; color:var(--ok);} .status.pending{background:#fff8e1; color:#b08d00;}
+  .status.plus{background:#e6f0f8; color:var(--accent-d);} .status.minus{background:#faf0f0; color:var(--err);}
 
-  .hint-text {font-size: 12px; color: #7a93a8; margin-top: 6px; margin-bottom: 2px;}
+  /* Карточки в меню */
+  .menu-cards{display:flex; gap:12px; margin-top:20px;}
+  .menu-card{flex:1; background:#f7fafd; border:1.5px solid var(--line); border-radius:14px; padding:20px 10px; text-align:center; cursor:pointer; transition:all .2s;}
+  .menu-card:hover{border-color:var(--accent); background:#fff; box-shadow:0 4px 12px rgba(74,127,165,.1);}
+  .menu-card h3{font-size:14px; color:var(--ink); margin-top:10px; font-weight:600;}
 
-  .history-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-  .history-item { background: #f7fafd; border: 1px solid #d0e2ef; border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 13px;}
-  .history-item .amount { font-weight: 600; color: var(--ink); }
-  .history-item .status { padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-  .status.ok { background: #edf6f1; color: var(--ok); }
-  .status.pending { background: #fff8e1; color: #b08d00; }
+  /* Профиль */
+  .profile-header{display:flex; align-items:center; gap:16px; margin-bottom:20px;}
+  .avatar{width:64px; height:64px; background:#e8f2f9; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent-d); font-size:26px; font-weight:600; border:2px solid var(--line);}
+  .profile-info h2{font-size:18px; font-weight:650;}
+  .profile-info p{font-size:13px; color:var(--muted); margin-top:2px;}
 </style>
 </head>
 <body>
 <div class="app">
-
-  <div class="head">
-    <div class="head-icon">
-      <svg width="24" height="24" viewBox="0 0 34 34" fill="none"><rect x="2" y="6" width="30" height="22" rx="4" stroke="#4a7fa5" stroke-width="2"/><rect x="2" y="11" width="30" height="4" fill="#b5d0e4"/><circle cx="25" cy="22" r="3" fill="#4a7fa5"/></svg>
-    </div>
-    <div>
+  
+  <!-- Шапка -->
+  <div class="top-bar" id="mainHeader" style="display:none;">
+    <div class="head">
+      <div class="head-icon"><svg width="22" height="22" viewBox="0 0 34 34" fill="none"><rect x="2" y="6" width="30" height="22" rx="4" stroke="#4a7fa5" stroke-width="2"/><rect x="2" y="11" width="30" height="4" fill="#b5d0e4"/><circle cx="25" cy="22" r="3" fill="#4a7fa5"/></svg></div>
       <h1>Вывод денег</h1>
-      <div class="sub">Оформление заявки на вывод</div>
     </div>
-  </div>
-
-  <button class="profile-btn" id="navProfile" style="display:none" title="Профиль">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </button>
-    <!-- ШАГ 0: Авторизация -->
-  <div class="step" id="step0">
-    <div id="loginBox">
-      <label>Логин</label>
-      <input id="inLogin" type="text" placeholder="Введите логин" autocomplete="off">
-      <label>Пароль</label>
-      <input id="inPass" type="password" placeholder="Введите пароль" autocomplete="off">
-      <button class="btn" id="btnLogin">Войти</button>
-      <div class="msg-line" id="msgAuth"></div>
-      
-      <div class="divider"></div>
-      <button class="btn google" id="btnGoogle">
-        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Войти через Google
-      </button>
-      
-      <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--muted);">
-        Нет аккаунта? <a href="#" id="linkReg" style="color:var(--accent); text-decoration:none; font-weight:600;">Регистрация</a>
-      </div>
-    </div>
-
-    <div id="regBox" style="display:none">
-      <label>Логин</label>
-      <input id="inRegLogin" type="text" placeholder="Придумайте логин" autocomplete="off">
-      <label>Пароль</label>
-      <input id="inRegPass" type="password" placeholder="Придумайте пароль" autocomplete="off">
-      <button class="btn" id="btnReg">Зарегистрироваться</button>
-      <div class="msg-line" id="msgReg"></div>
-      <div style="text-align:center; margin-top:16px; font-size:13px; color:var(--muted);">
-        Уже есть аккаунт? <a href="#" id="linkLogin" style="color:var(--accent); text-decoration:none; font-weight:600;">Войти</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ШАГ 1 -->
-  <div class="step active" id="step1">
-    <label>Ссылка на сайт</label>
-    <input id="inSite" type="text" placeholder="https://example.com" autocomplete="off" spellcheck="false">
-    <button class="btn" id="btnSite">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
-      Проверить сайт
+    <button class="profile-btn" id="btnOpenProfile">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2"/></svg>
     </button>
-    <div class="msg-line" id="msgSite"></div>
+  </div>
+  <!-- ЭКРАН 0: Регистрация/Вход (показывается первым) -->
+<div class="step active" id="stepAuth">
+  <div style="text-align:center; margin-bottom:24px;">
+    <div style="width:56px; height:56px; background:linear-gradient(135deg,#e3eef7,#d0e2f0); border-radius:16px; display:inline-flex; align-items:center; justify-content:center; border:1px solid #c5d9e8; margin-bottom:12px;">
+      <svg width="28" height="28" viewBox="0 0 34 34" fill="none"><rect x="2" y="6" width="30" height="22" rx="4" stroke="#4a7fa5" stroke-width="2"/><rect x="2" y="11" width="30" height="4" fill="#b5d0e4"/><circle cx="25" cy="22" r="3" fill="#4a7fa5"/></svg>
+    </div>
+    <h1 style="font-size:20px;">Вывод денег</h1>
+    <p class="sub" style="font-size:13px;">Для начала работы зарегистрируйтесь</p>
   </div>
 
-  <!-- ШАГ 2 -->
-  <div class="step" id="step2">
+  <div id="loginBox" style="display:none;">
+    <label>Логин</label><input id="inLogin" type="text" placeholder="Логин">
+    <label>Пароль</label><input id="inPass" type="password" placeholder="Пароль">
+    <button class="btn" id="btnLogin">Войти</button>
+    <div class="msg-line" id="msgAuth"></div>
+    <div style="text-align:center; margin-top:16px; font-size:13px;">Нет аккаунта? <a href="#" id="linkReg" style="color:var(--accent); font-weight:600; text-decoration:none;">Регистрация</a></div>
+  </div>
+
+  <div id="regBox">
+    <label>Логин</label><input id="inRegLogin" type="text" placeholder="Придумайте логин">
+    <label>Пароль</label><input id="inRegPass" type="password" placeholder="Придумайте пароль">
+    <button class="btn" id="btnReg">Зарегистрироваться</button>
+    <div class="msg-line" id="msgReg"></div>
+    <div style="text-align:center; margin-top:16px; font-size:13px;">Уже есть аккаунт? <a href="#" id="linkLogin" style="color:var(--accent); font-weight:600; text-decoration:none;">Войти</a></div>
+  </div>
+</div>
+
+<!-- ЭКРАН 1: Главное меню (Вывод и Пополнение) -->
+<div class="step" id="stepMenu">
+  <div class="summary" style="text-align:center; font-size:14px; margin-bottom:10px;">
+    Ваш баланс: <b id="menuBalance" style="font-size:18px; color:var(--accent-d);">0 ₽</b>
+  </div>
+  
+  <div class="menu-cards">
+    <div class="menu-card" id="cardWithdraw">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 4v12M12 16l-4-4M12 16l4-4" stroke="#4a7fa5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 18v2h16v-2" stroke="#4a7fa5" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Вывод денег</h3>
+    </div>
+    <div class="menu-card" id="cardDeposit">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 20V8M12 8l-4 4M12 8l4 4" stroke="#4a7fa5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 6V4h16v2" stroke="#4a7fa5" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Пополнение</h3>
+    </div>
+  </div>
+</div>
+
+<!-- ЭКРАН 2: Профиль -->
+<div class="step" id="stepProfile">
+  <div class="profile-header">
+    <div class="avatar" id="profAvatar">U</div>
+    <div class="profile-info">
+      <h2 id="profLogin">User</h2>
+      <p>Личный кабинет</p>
+    </div>
+  </div>
+
+  <div class="site-card" id="editProfileBox" style="display:none;">
+    <label>Новое имя (логин)</label>
+    <input id="inEditName" type="text" placeholder="Введите новое имя">
+    <div class="btn-row">
+      <button class="btn ghost" id="btnCancelEdit">Отмена</button>
+      <button class="btn" id="btnSaveEdit">Сохранить</button>
+    </div>
+    <div class="msg-line" id="msgEdit"></div>
+  </div>
+  
+  <div class="btn-row" id="profileActions">
+    <button class="btn ghost" id="btnEditProfile">Редактировать</button>
+    <button class="btn ghost" id="btnLogout" style="color:var(--err); border-color:#e8cccc;">Выйти</button>
+  </div>
+
+  <div class="divider"></div>
+  
+  <div style="font-size:14px; font-weight:600; margin-bottom:10px;">История операций</div>
+  <div class="history-list" id="historyList"></div>
+  
+  <button class="btn" id="btnBackMenu" style="margin-top:24px;">На главную</button>
+  </div>
+    <!-- ЭКРАН 3: Вывод (Шаг 1 - Сайт) -->
+  <div class="step" id="stepW1">
+    <label>Ссылка на сайт</label>
+    <input id="inSite" type="text" placeholder="https://example.com" spellcheck="false">
+    <button class="btn" id="btnSite"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт</button>
+    <div class="msg-line" id="msgSite"></div>
+    <button class="btn ghost" onclick="show(1)" style="margin-top:10px;">Назад</button>
+  </div>
+
+  <!-- ЭКРАН 4: Вывод (Шаг 2 - Инфо о сайте) -->
+  <div class="step" id="stepW2">
     <div class="site-card">
       <div class="site-row">
-        <div class="site-item">
-          <span class="site-label">Название</span>
-          <span class="site-value" id="siteName">...</span>
-        </div>
-        <div class="site-item">
-          <span class="site-label">Домен</span>
-          <span class="site-value" id="siteDomain">...</span>
-        </div>
-        <div class="site-item">
-          <span class="site-label">Ссылка</span>
-          <a href="#" target="_blank" class="site-value link" id="siteLink">...</a>
-        </div>
-        <div class="site-item" id="siteHostBox" style="display:none">
-          <span class="site-label">Создан на</span>
-          <span class="site-value" id="siteHost">...</span>
-        </div>
+        <div class="site-item"><span class="site-label">Название</span><span class="site-value" id="siteName">...</span></div>
+        <div class="site-item"><span class="site-label">Домен</span><span class="site-value" id="siteDomain">...</span></div>
+        <div class="site-item"><span class="site-label">Ссылка</span><a href="#" target="_blank" class="site-value link" id="siteLink">...</a></div>
+        <div class="site-item" id="siteHostBox" style="display:none"><span class="site-label">Создан на</span><span class="site-value" id="siteHost">...</span></div>
       </div>
     </div>
-    
     <div id="siteConfirmBox">
       <div style="font-size:14px;color:var(--muted);margin-bottom:14px;text-align:center;">Это ваш сайт?</div>
-      <div class="btn-row">
-        <button class="btn ghost" id="btnSiteNo" style="flex:1">Нет</button>
-        <button class="btn" id="btnSiteYes" style="flex:1">Да, верно</button>
-      </div>
+      <div class="btn-row"><button class="btn ghost" id="btnSiteNo" style="flex:1">Нет</button><button class="btn" id="btnSiteYes" style="flex:1">Да, верно</button></div>
     </div>
-
     <div id="profileBox" style="display:none">
-      <label>Ссылка на профиль</label>
-      <input id="inProfile" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
-      <button class="btn" id="btnProfile">Продолжить</button>
-      <div class="msg-line" id="msgProfile"></div>
+      <label>Ссылка на профиль</label><input id="inProfile" type="text" placeholder="https://site.com/user/...">
+      <button class="btn" id="btnProfile">Продолжить</button><div class="msg-line" id="msgProfile"></div>
     </div>
+    <button class="btn ghost" onclick="show(1)" style="margin-top:10px;">Назад</button>
   </div>
 
-  <!-- ШАГ 3 -->
-  <div class="step" id="step3">
-    <label>Ник на сайте</label>
-    <input id="inNick" type="text" placeholder="Ваш ник" autocomplete="off" spellcheck="false">
+  <!-- ЭКРАН 5: Вывод (Шаг 3 - Ник/Профиль) -->
+  <div class="step" id="stepW3">
+    <label>Ник на сайте</label><input id="inNick" type="text" placeholder="Ваш ник">
     <div class="hint-text">Если у вас нету ника, оставьте ссылку на свой профиль:</div>
-    <label style="margin-top:10px;">Ссылка на профиль</label>
-    <input id="inProfileAlt" type="text" placeholder="https://site.com/user/..." autocomplete="off" spellcheck="false">
-    <button class="btn" id="btnNickOrProfile">Продолжить</button>
-    <div class="msg-line" id="msgNickProfile"></div>
+    <label style="margin-top:10px;">Ссылка на профиль</label><input id="inProfileAlt" type="text" placeholder="https://site.com/user/...">
+    <button class="btn" id="btnNickOrProfile">Продолжить</button><div class="msg-line" id="msgNickProfile"></div>
+    <button class="btn ghost" onclick="show(1)" style="margin-top:10px;">Назад</button>
   </div>
 
-  <!-- ШАГ 4 -->
-  <div class="step" id="step4">
-    <label>Сумма вывода</label>
-    <input id="inAmount" type="text" placeholder="0" inputmode="numeric" autocomplete="off">
-    <label>Номер карты</label>
-    <input id="inCard" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" autocomplete="off">
-    <button class="btn" id="btnWithdraw">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 12v1.5h11V12" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg>
-      Вывести
-    </button>
+  <!-- ЭКРАН 6: Вывод (Шаг 4 - Сумма и карта) -->
+  <div class="step" id="stepW4">
+    <label>Сумма вывода (макс. 10 000 000 ₽)</label><input id="inAmount" type="text" placeholder="0" inputmode="numeric">
+    <label>Номер карты</label><input id="inCard" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19">
+    <button class="btn" id="btnWithdraw"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 12v1.5h11V12" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Вывести</button>
     <div class="msg-line" id="msgWithdraw"></div>
+    <button class="btn ghost" onclick="show(1)" style="margin-top:10px;">Назад</button>
   </div>
 
-  <!-- ШАГ 5 -->
-  <div class="step" id="step5">
+  <!-- ЭКРАН 7: Вывод (Шаг 5 - Ожидание) -->
+  <div class="step" id="stepW5">
     <div class="center">
-      <div class="big-icon">
-        <svg width="48" height="48" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#b5d0e4" stroke-width="2"/><path d="M16 27l7 7 13-14" stroke="#4e8c6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="big-icon"><svg width="48" height="48" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#b5d0e4" stroke-width="2"/><path d="M16 27l7 7 13-14" stroke="#4e8c6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="title-lg">Заявка на вывод создана!</div>
       <div class="summary" style="margin-bottom:16px">Ожидайте обработки: 5–10 минут.</div>
     </div>
@@ -217,70 +232,58 @@
     <div class="timer-text" id="timerWrap"></div>
     <button class="btn" id="btnNew" style="display:none">Новый вывод</button>
     <button class="btn ghost" id="btnStay" style="display:none">Остаться здесь</button>
+    <button class="btn ghost" onclick="show(1)" style="margin-top:10px;">На главную</button>
   </div>
 
-  <!-- ШАГ 6: ПРОФИЛЬ -->
-  <div class="step" id="step6">
-    <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
-      <div style="width:50px; height:50px; background:#e8f2f9; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--accent-d); font-size:20px; font-weight:600;">
-        <span id="profAvatar">U</span>
-      </div>
-      <div>
-        <div style="font-size:16px; font-weight:600;" id="profLogin">User</div>
-        <div style="font-size:12px; color:var(--muted);">Личный кабинет</div>
-      </div>
+  <!-- ЭКРАН 8: Пополнение -->
+  <div class="step" id="stepDeposit">
+    <label>Сумма пополнения</label><input id="depAmount" type="text" placeholder="0">
+    <div style="font-size:12px; color:var(--muted); margin-top:6px;">Комиссия сервиса: 1%</div>
+    <label style="margin-top:14px;">Номер карты (с которой платите)</label><input id="depCard" type="text" placeholder="0000 0000 0000 0000" maxlength="19">
+    <div style="margin-top:16px; background:#f7fafd; border:1px solid #d0e2ef; border-radius:10px; padding:12px; font-size:13px;">
+      К оплате: <b id="depTotal" style="color:var(--accent-d);">0 ₽</b>
     </div>
-    
-    <div class="summary">
-      Всего выведено: <b id="profTotal">0 ₽</b><br>
-      Заявок: <b id="profCount">0</b>
-    </div>
-
-    <div class="divider"></div>
-    <div style="font-size:14px; font-weight:600; margin-bottom:10px;">История выводов</div>
-    
-    <div class="history-list" id="historyList"></div>
-
-    <button class="btn" id="btnBackToMain" style="margin-top:24px;">Вернуться на главную</button>
-    <button class="btn ghost" id="btnLogout">Выйти из аккаунта</button>
+    <button class="btn" id="btnDeposit">Пополнить</button>
+    <div class="msg-line" id="msgDeposit"></div>
+    <button class="btn ghost" onclick="show(1)" style="margin-top:10px;">Назад</button>
   </div>
 
-  </div>
-  <script>
+</div>
+<script>
 (function(){
   const $ = id => document.getElementById(id);
-  const steps = {0:$('step0'),1:$('step1'),2:$('step2'),3:$('step3'),4:$('step4'),5:$('step5'),6:$('step6')};
+  const steps = {auth:$('stepAuth'), menu:$('stepMenu'), profile:$('stepProfile'), W1:$('stepW1'), W2:$('stepW2'), W3:$('stepW3'), W4:$('stepW4'), W5:$('stepW5'), deposit:$('stepDeposit')};
   
-  function show(n){
+  window.show = function(name){
     Object.values(steps).forEach(s=>s.classList.remove('active'));
-    steps[n].classList.add('active');
+    if(typeof name === 'number') {
+      if(name === 1) steps.menu.classList.add('active');
+    } else {
+      if(steps[name]) steps[name].classList.add('active');
+    }
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
   const ICON_OK = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#4e8c6e" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#4e8c6e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const ICON_ERR = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#c05a5a" stroke-width="1.5"/><path d="M8 4.5v3.5M8 10.5v.3" stroke="#c05a5a" stroke-width="1.7" stroke-linecap="round"/></svg>';
-
-  function setMsg(el, type, text){
-    el.className = 'msg-line ' + type;
-    el.innerHTML = (type==='ok'?ICON_OK:ICON_ERR) + '<span>'+text+'</span>';
-    el.style.display = 'flex';
-  }
+  function setMsg(el, type, text){ el.className = 'msg-line ' + type; el.innerHTML = (type==='ok'?ICON_OK:ICON_ERR) + '<span>'+text+'</span>'; el.style.display = 'flex'; }
   function clearMsg(el){ el.style.display='none'; el.innerHTML=''; }
 
-  // --- Система пользователей ---
+  // --- ПОЛЬЗОВАТЕЛИ ---
   let currentUser = JSON.parse(localStorage.getItem('wd_currentUser')) || null;
   let users = JSON.parse(localStorage.getItem('wd_users')) || {};
 
   function saveUsers() { localStorage.setItem('wd_users', JSON.stringify(users)); }
   function saveCurrentUser() { localStorage.setItem('wd_currentUser', JSON.stringify(currentUser)); }
 
-  function updateUILogin() {
+  function updateUI() {
     if(currentUser) {
-      $('navProfile').style.display = 'flex';
-      show(1);
+      $('mainHeader').style.display = 'flex';
+      $('menuBalance').textContent = (currentUser.balance || 0).toLocaleString('ru-RU') + ' ₽';
+      show('menu');
     } else {
-      $('navProfile').style.display = 'none';
-      show(0);
+      $('mainHeader').style.display = 'none';
+      show('auth');
     }
   }
 
@@ -289,57 +292,62 @@
 
   $('btnLogin').addEventListener('click', () => {
     const box = $('msgAuth'); clearMsg(box);
-    const l = $('inLogin').value.trim();
-    const p = $('inPass').value;
+    const l = $('inLogin').value.trim(); const p = $('inPass').value;
     if(users[l] && users[l].password === p) {
-      currentUser = users[l];
-      currentUser.login = l;
-      saveCurrentUser();
-      $('inLogin').value=''; $('inPass').value='';
-      updateUILogin();
-    } else {
-      setMsg(box, 'err', 'Неверный логин или пароль.');
-    }
+      currentUser = users[l]; currentUser.login = l; saveCurrentUser();
+      $('inLogin').value=''; $('inPass').value=''; updateUI();
+    } else { setMsg(box, 'err', 'Неверный логин или пароль.'); }
   });
 
   $('btnReg').addEventListener('click', () => {
     const box = $('msgReg'); clearMsg(box);
-    const l = $('inRegLogin').value.trim();
-    const p = $('inRegPass').value;
-    if(l.length < 3) { setMsg(box, 'err', 'Логин должен быть не менее 3 символов.'); return; }
-    if(p.length < 4) { setMsg(box, 'err', 'Пароль должен быть не менее 4 символов.'); return; }
-    if(users[l]) { setMsg(box, 'err', 'Такой логин уже существует.'); return; }
+    const l = $('inRegLogin').value.trim(); const p = $('inRegPass').value;
+    if(l.length < 3) { setMsg(box, 'err', 'Логин от 3 символов.'); return; }
+    if(p.length < 4) { setMsg(box, 'err', 'Пароль от 4 символов.'); return; }
+    if(users[l]) { setMsg(box, 'err', 'Такой логин уже есть.'); return; }
     
-    users[l] = { password: p, history: [], total: 0 };
-    saveUsers();
-    currentUser = users[l];
-    currentUser.login = l;
-    saveCurrentUser();
-    $('inRegLogin').value=''; $('inRegPass').value='';
-    updateUILogin();
-  });
-
-  $('btnGoogle').addEventListener('click', () => {
-    const l = 'google_user';
-    if(!users[l]) users[l] = { password: 'google', history: [], total: 0 };
-    saveUsers();
-    currentUser = users[l];
-    currentUser.login = l;
-    saveCurrentUser();
-    updateUILogin();
+    users[l] = { password: p, history: [], balance: 0 };
+    saveUsers(); currentUser = users[l]; currentUser.login = l; saveCurrentUser();
+    $('inRegLogin').value=''; $('inRegPass').value=''; updateUI();
   });
 
   $('btnLogout').addEventListener('click', () => {
-    currentUser = null;
-    localStorage.removeItem('wd_currentUser');
-    updateUILogin();
+    currentUser = null; localStorage.removeItem('wd_currentUser'); updateUI();
   });
 
-  $('navProfile').addEventListener('click', () => {
-    renderProfile();
-    show(6);
+  // --- ПРОФИЛЬ ---
+  $('btnOpenProfile').addEventListener('click', () => { renderProfile(); show('profile'); });
+  $('btnBackMenu').addEventListener('click', () => { updateUI(); });
+  
+  $('btnEditProfile').addEventListener('click', () => {
+    $('editProfileBox').style.display = 'block';
+    $('profileActions').style.display = 'none';
+    $('inEditName').value = currentUser.login;
   });
-  $('btnBackToMain').addEventListener('click', () => show(1));
+  
+  $('btnCancelEdit').addEventListener('click', () => {
+    $('editProfileBox').style.display = 'none';
+    $('profileActions').style.display = 'flex';
+  });
+
+  $('btnSaveEdit').addEventListener('click', () => {
+    const newName = $('inEditName').value.trim();
+    const box = $('msgEdit'); clearMsg(box);
+    if(newName.length < 3) { setMsg(box, 'err', 'Имя от 3 символов.'); return; }
+    if(newName !== currentUser.login) {
+      if(users[newName]) { setMsg(box, 'err', 'Это имя уже занято.'); return; }
+      const oldName = currentUser.login;
+      const userData = users[oldName];
+      delete users[oldName];
+      users[newName] = userData;
+      users[newName].login = newName;
+      currentUser = users[newName];
+      saveUsers(); saveCurrentUser();
+    }
+    $('editProfileBox').style.display = 'none';
+    $('profileActions').style.display = 'flex';
+    renderProfile();
+  });
 
   function renderProfile() {
     if(!currentUser) return;
@@ -347,20 +355,18 @@
     $('profAvatar').textContent = currentUser.login[0].toUpperCase();
     
     let historyHtml = '';
-    let total = 0;
-    let count = 0;
-    
     if(currentUser.history && currentUser.history.length > 0) {
       const revHistory = [...currentUser.history].reverse();
       revHistory.forEach(item => {
-        count++;
-        if(item.status === 'ok') total += Number(item.amount);
-        const statusClass = item.status === 'ok' ? 'ok' : 'pending';
-        const statusText = item.status === 'ok' ? 'Завершено' : 'В обработке';
+        let statusClass = 'pending', statusText = 'В обработке';
+        if(item.type === 'deposit') { statusClass = 'plus'; statusText = 'Пополнение'; }
+        else if(item.status === 'ok') { statusClass = 'ok'; statusText = 'Выведено'; }
+        else if(item.status === 'minus') { statusClass = 'minus'; statusText = 'Списано'; }
+
         historyHtml += `
           <div class="history-item">
             <div>
-              <div class="amount">${Number(item.amount).toLocaleString('ru-RU')} ₽</div>
+              <div style="font-weight:600; color:${item.type==='deposit'?'var(--ok)':'var(--ink)'}">${item.type==='deposit'?'+':'-'}${Number(item.amount).toLocaleString('ru-RU')} ₽</div>
               <div style="font-size:11px; color:var(--muted); margin-top:2px;">${item.date}</div>
             </div>
             <div class="status ${statusClass}">${statusText}</div>
@@ -371,211 +377,151 @@
     } else {
       $('historyList').innerHTML = '<div style="font-size:13px; color:var(--muted); text-align:center; padding:10px;">История пуста</div>';
     }
-    
-    $('profTotal').textContent = total.toLocaleString('ru-RU') + ' ₽';
-    $('profCount').textContent = count;
   }
 
-  // --- Основной процесс ---
+  // --- ВЫВОД (Сайт) ---
   let state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
   let timers = [];
-
   function clearTimers(){ timers.forEach(t=>{clearTimeout(t);clearInterval(t)}); timers=[]; }
 
   function normalizeUrl(v){
-    v = v.trim();
-    if(!v) return null;
+    v = v.trim(); if(!v) return null;
     if(!/^https?:\/\//i.test(v)) v = 'https://' + v;
-    try{
-      const u = new URL(v);
-      if(!u.hostname.includes('.')) return null;
-      return u;
-    }catch(e){ return null; }
+    try{ const u = new URL(v); if(!u.hostname.includes('.')) return null; return u; }catch(e){ return null; }
   }
+
+  $('cardWithdraw').addEventListener('click', () => { show('W1'); });
+  $('cardDeposit').addEventListener('click', () => { show('deposit'); });
 
   $('btnSite').addEventListener('click', async () => {
     const box = $('msgSite'); clearMsg(box);
     const u = normalizeUrl($('inSite').value);
     if(!u){ setMsg(box,'err','Введите корректную ссылку.'); return; }
-
-    const btn = $('btnSite');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Анализ...';
-
+    const btn = $('btnSite'); btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Анализ...';
     let html = '', siteTitle = '', hosting = '';
-
-    try {
-      const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
-      if(res.ok) html = await res.text();
-    } catch(e) { /* ignore */ }
-
+    try { const res = await fetch('https://corsproxy.io/?' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) }); if(res.ok) html = await res.text(); } catch(e) {}
     if(!html || html.length < 20) {
-      try {
-        const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) });
-        if(res.ok) {
-          const data = await res.json();
-          if(data.contents) html = data.contents;
-        }
-      } catch(e) { /* ignore */ }
+      try { const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(u.href), { signal: AbortSignal.timeout(6000) }); if(res.ok) { const data = await res.json(); if(data.contents) html = data.contents; } } catch(e) {}
     }
-
     if(html && html.length > 20) {
-      const ogSite = html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']/i)
-                  || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']/i);
+      const ogSite = html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']/i) || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']/i);
       if(ogSite) siteTitle = ogSite[1].trim();
-
-      if(!siteTitle){
-        const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-        if(t) siteTitle = t[1].replace(/\s+/g,' ').trim();
-      }
-
-      const h = u.hostname.toLowerCase();
-      const htmlLow = html.toLowerCase();
+      if(!siteTitle){ const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i); if(t) siteTitle = t[1].replace(/\s+/g,' ').trim(); }
+      const h = u.hostname.toLowerCase(); const htmlLow = html.toLowerCase();
       if(h.includes('github.io') || htmlLow.includes('github.com')) hosting = 'GitHub Pages';
       else if(h.includes('vercel.app') || htmlLow.includes('vercel')) hosting = 'Vercel';
       else if(h.includes('netlify.app') || htmlLow.includes('netlify')) hosting = 'Netlify';
       else if(htmlLow.includes('wp-content')) hosting = 'WordPress';
     }
-
     if(!siteTitle) siteTitle = u.hostname.replace(/^www\./,'');
-    state.site = u.hostname.replace(/^www\./,'');
-    state.siteName = siteTitle;
-    
-    $('siteName').textContent = siteTitle;
-    $('siteDomain').textContent = state.site;
-    const linkEl = $('siteLink');
-    linkEl.textContent = u.href;
-    linkEl.href = u.href;
-
-    if(hosting){ $('siteHostBox').style.display = 'flex'; $('siteHost').textContent = hosting; } 
-    else { $('siteHostBox').style.display = 'none'; }
-
-    show(2);
-    btn.disabled = false;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт';
+    state.site = u.hostname.replace(/^www\./,''); state.siteName = siteTitle;
+    $('siteName').textContent = siteTitle; $('siteDomain').textContent = state.site;
+    $('siteLink').textContent = u.href; $('siteLink').href = u.href;
+    if(hosting){ $('siteHostBox').style.display = 'flex'; $('siteHost').textContent = hosting; } else { $('siteHostBox').style.display = 'none'; }
+    show('W2'); btn.disabled = false; btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#fff" stroke-width="1.7"/><path d="M11 11l3.5 3.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Проверить сайт';
   });
   $('inSite').addEventListener('keydown', e => { if(e.key==='Enter') $('btnSite').click(); });
 
-  $('btnSiteYes').addEventListener('click', () => { show(3); $('inNick').focus(); });
-  $('btnSiteNo').addEventListener('click', () => {
-    $('siteConfirmBox').style.display = 'none';
-    $('profileBox').style.display = 'block';
-    $('inProfile').focus();
-  });
+  $('btnSiteYes').addEventListener('click', () => { show('W3'); $('inNick').focus(); });
+  $('btnSiteNo').addEventListener('click', () => { $('siteConfirmBox').style.display = 'none'; $('profileBox').style.display = 'block'; $('inProfile').focus(); });
 
   $('btnProfile').addEventListener('click', () => {
     const box = $('msgProfile'); clearMsg(box);
     const prof = $('inProfile').value.trim();
     if(!prof) { setMsg(box, 'err', 'Введите ссылку на профиль.'); return; }
-    state.profile = prof;
-    show(4); $('inAmount').focus();
+    state.profile = prof; show('W4'); $('inAmount').focus();
   });
   $('inProfile').addEventListener('keydown', e => { if(e.key==='Enter') $('btnProfile').click(); });
 
   $('btnNickOrProfile').addEventListener('click', () => {
     const box = $('msgNickProfile'); clearMsg(box);
-    const nick = $('inNick').value.trim();
-    const prof = $('inProfileAlt').value.trim();
+    const nick = $('inNick').value.trim(); const prof = $('inProfileAlt').value.trim();
     if(!nick && !prof) { setMsg(box, 'err', 'Заполните ник или ссылку на профиль.'); return; }
-    state.nick = nick; state.profile = prof;
-    show(4); $('inAmount').focus();
+    state.nick = nick; state.profile = prof; show('W4'); $('inAmount').focus();
   });
 
-  $('inAmount').addEventListener('input', e => {
-    let v = e.target.value.replace(/\D/g, '');
-    if(v) v = Number(v).toLocaleString('ru-RU');
-    e.target.value = v;
-  });
-
-  $('inCard').addEventListener('input', e => {
-    let v = e.target.value.replace(/\D/g, '').slice(0, 16);
-    e.target.value = v.replace(/(.{4})/g,'$1 ').trim();
-  });
+  $('inAmount').addEventListener('input', e => { let v = e.target.value.replace(/\D/g, ''); if(v) v = Number(v).toLocaleString('ru-RU'); e.target.value = v; });
+  $('inCard').addEventListener('input', e => { let v = e.target.value.replace(/\D/g, '').slice(0, 16); e.target.value = v.replace(/(.{4})/g,'$1 ').trim(); });
 
   $('btnWithdraw').addEventListener('click', () => {
     const box = $('msgWithdraw'); clearMsg(box);
     const amountStr = $('inAmount').value.replace(/\s/g,'');
     const card = $('inCard').value.replace(/\s/g,'');
-
     if(!amountStr || +amountStr <= 0){ setMsg(box,'err','Введите сумму вывода.'); return; }
-    if(+amountStr > 100000) { setMsg(box, 'err', 'Максимальная сумма за один раз: 100 000 ₽'); return; }
+    if(+amountStr > 10000000) { setMsg(box, 'err', 'Максимальная сумма: 10 000 000 ₽'); return; }
+    if(+amountStr > currentUser.balance) { setMsg(box, 'err', 'Недостаточно средств на балансе.'); return; }
     if(card.length !== 16){ setMsg(box,'err','Номер карты должен содержать 16 цифр.'); return; }
 
     state.amount = amountStr; state.card = card;
-
-    const btn = $('btnWithdraw');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Отправка...';
-
-    setTimeout(() => {
-      btn.disabled = false;
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 12v1.5h11V12" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Вывести';
-      startOrder();
-    }, 800);
+    const btn = $('btnWithdraw'); btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Отправка...';
+    setTimeout(() => { btn.disabled = false; btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M8 10l-3-3M8 10l3-3" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 12v1.5h11V12" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/></svg> Вывести'; startOrder(); }, 800);
   });
 
-  function fmtCard(c){ return '**** **** **** ' + c.slice(-4); }
-
   function startOrder(){
-    clearTimers(); show(5);
+    clearTimers(); show('W5');
+    const now = new Date(); const dateStr = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU').slice(0,5);
     
-    // Сохраняем в историю
-    const now = new Date();
-    const dateStr = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU').slice(0,5);
-    
-    currentUser.history.push({ amount: state.amount, date: dateStr, status: 'pending' });
-    saveCurrentUser();
-    saveUsers();
-    
+    currentUser.balance -= Number(state.amount);
+    currentUser.history.push({ type: 'withdraw', amount: state.amount, date: dateStr, status: 'pending' });
+    saveCurrentUser(); saveUsers();
+
     let summary = 'Сайт: <b>'+(state.siteName || state.site)+'</b><br>';
     if(state.nick) summary += 'Ник: <b>'+state.nick+'</b><br>';
     if(state.profile) summary += 'Профиль: <b>'+state.profile+'</b><br>';
-    summary += 'Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>Карта: <b>'+fmtCard(state.card)+'</b>';
-    
+    summary += 'Сумма: <b>'+Number(state.amount).toLocaleString('ru-RU')+' ₽</b><br>Карта: <b>**** **** **** '+state.card.slice(-4)+'</b>';
     $('orderSummary').innerHTML = summary;
-
-    const status = $('statusMsg');
-    setMsg(status,'ok','Заявка создана. Ожидайте.');
-
+    
+    const status = $('statusMsg'); setMsg(status,'ok','Заявка создана. Ожидайте.');
     $('btnNew').style.display = 'none'; $('btnStay').style.display = 'none'; $('timerWrap').textContent = '';
 
     timers.push(setTimeout(() => { setMsg(status,'ok','Вывод обрабатывается...'); }, 30000));
-    
     timers.push(setTimeout(() => {
       setMsg(status,'ok','Вывод завершён. Средства зачислены.');
       $('btnNew').style.display = 'flex'; $('btnStay').style.display = 'flex'; $('timerWrap').textContent = '';
-      
-      // Обновляем статус в истории
-      const lastItem = currentUser.history.find(i => i.status === 'pending');
+      const lastItem = currentUser.history.find(i => i.status === 'pending' && i.type === 'withdraw');
       if(lastItem) { lastItem.status = 'ok'; saveCurrentUser(); saveUsers(); }
-      
     }, 5*60*1000));
 
     let left = 5*60;
     const tick = setInterval(() => {
-      left--;
-      if(left <= 0){ clearInterval(tick); return; }
-      const m = String(Math.floor(left/60)).padStart(2,'0');
-      const s = String(left%60).padStart(2,'0');
-      $('timerWrap').textContent = 'Осталось: ' + m + ':' + s;
+      left--; if(left <= 0){ clearInterval(tick); return; }
+      $('timerWrap').textContent = 'Осталось: ' + String(Math.floor(left/60)).padStart(2,'0') + ':' + String(left%60).padStart(2,'0');
     }, 1000);
     timers.push(tick);
   }
 
-  $('btnNew').addEventListener('click', () => {
-    clearTimers();
-    state = { site:'', siteName:'', nick:'', profile:'', amount:'', card:'' };
-    $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value=''; $('inProfileAlt').value='';
-    ['msgSite','msgWithdraw','msgProfile','msgNickProfile','statusMsg'].forEach(id=>clearMsg($(id)));
-    $('siteConfirmBox').style.display = 'block'; $('profileBox').style.display = 'none';
-    show(1); $('inSite').focus();
+  $('btnNew').addEventListener('click', () => { clearTimers(); show('W1'); $('inSite').value=''; $('inNick').value=''; $('inAmount').value=''; $('inCard').value=''; $('inProfile').value=''; $('inProfileAlt').value=''; });
+
+  // --- ПОПОЛНЕНИЕ ---
+  $('depAmount').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, ''); if(v) v = Number(v).toLocaleString('ru-RU'); e.target.value = v;
+    let val = v.replace(/\s/g, ''); if(val) { let fee = Number(val) * 0.01; $('depTotal').textContent = (Number(val) + fee).toLocaleString('ru-RU') + ' ₽'; } else { $('depTotal').textContent = '0 ₽'; }
+  });
+  $('depCard').addEventListener('input', e => { let v = e.target.value.replace(/\D/g, '').slice(0, 16); e.target.value = v.replace(/(.{4})/g,'$1 ').trim(); });
+
+  $('btnDeposit').addEventListener('click', () => {
+    const box = $('msgDeposit'); clearMsg(box);
+    const amountStr = $('depAmount').value.replace(/\s/g,'');
+    const card = $('depCard').value.replace(/\s/g,'');
+    if(!amountStr || +amountStr <= 0){ setMsg(box,'err','Введите сумму.'); return; }
+    if(card.length !== 16){ setMsg(box,'err','Номер карты должен содержать 16 цифр.'); return; }
+
+    const btn = $('btnDeposit'); btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Оплата...';
+    setTimeout(() => {
+      btn.disabled = false; btn.innerHTML = 'Пополнить';
+      const now = new Date(); const dateStr = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU').slice(0,5);
+      
+      currentUser.balance += Number(amountStr);
+      currentUser.history.push({ type: 'deposit', amount: amountStr, date: dateStr, status: 'ok' });
+      saveCurrentUser(); saveUsers();
+      
+      setMsg(box, 'ok', 'Баланс успешно пополнен на ' + Number(amountStr).toLocaleString('ru-RU') + ' ₽ (комиссия 1% включена)');
+      $('depAmount').value = ''; $('depCard').value = ''; $('depTotal').textContent = '0 ₽';
+      $('menuBalance').textContent = (currentUser.balance || 0).toLocaleString('ru-RU') + ' ₽';
+    }, 1500);
   });
 
-  $('btnStay').addEventListener('click', () => { $('btnStay').style.display = 'none'; $('btnNew').style.display = 'none'; });
-
-  // Инициализация при загрузке
-  updateUILogin();
-
+  updateUI();
 })();
 </script>
 </body>
